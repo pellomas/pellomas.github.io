@@ -20,8 +20,8 @@
     //The variables for Megaman's shots
   let megamanShotSpeed;
   let shot1Out;
-  let shot1XOrigin;
-  let shot1yOrigin;
+  let shot1XPosition;
+  let shot1yPosition;
   
   
   function setup() {
@@ -38,10 +38,10 @@
     megamanDirection = 1;
     
     //Set the variables for Megaman's shots
-    megamanShotSpeed = 1
-    shot1Out = false
-    shot1XOrigin = 0
-    shot1yOrigin = 0
+    megamanShotSpeed = 1;
+    shot1Out = false;
+    shot1XPosition = 0;
+    shot1yPosition = 0;
   }
   
   //Let Megaman jump
@@ -60,7 +60,8 @@
   
   function shot1(){
       if (shot1Out){
-        ellipse(shot1XOrigin, shot1yOrigin, 40);
+        
+        ellipse(shot1XPosition, shot1yPosition, 40);
       }
   }
   
@@ -158,6 +159,7 @@
     touchingBottom();
     cleanUpStep();
     shot1();
+    fill(10, 10, 246);
     rect(megamanXPos, megamanYPos, megamanWidth, megamanHeight);
     
   }
