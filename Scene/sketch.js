@@ -22,46 +22,57 @@
   let shot1Out;
   let shot1XPosition;
   let shot1yPosition;
-  
+    //Varables for the screen
+  let xScaler;
+  let yScaler;
   
   function setup() {
-    createCanvas(400, 400);
+    createCanvas(windowWidth, windowHeight);
     //Set the speed variables to 0 for later use
     megamanYSpeed = 0;
     megamanXSpeed = 0;
-    
+
+    //Let's make Megaman's size congruent with the screen's(hopefully)!
+    xScaler = (windowWidth/500);
+    yScaler = (windowHeight/500);
+
     //Set Megaman's position to the middle of the screen at, like, a normal size
     megamanXPos = width / 2;
     megamanYPos = height / 2;
-    megamanWidth = 40;
-    megamanHeight = 60;
-    megamanDirection = 1;
+    megamanWidth = xScaler*64;
+    megamanHeight = yScaler*200;
+    megamanDirection = -1;
     
     //Set the variables for Megaman's shots
     megamanShotSpeed = 1;
     shot1Out = false;
-    shot1XPosition = 0;
-    shot1yPosition = 0;
+    shot1XPosition = 'unShot';
+    shot1yPosition = 'unShot'; 
   }
   
   //Let Megaman jump
   function jump(){
-    megamanYSpeed = megamanYSpeed - 15;
+    megamanYSpeed = megamanYSpeed - (15*yScaler);
   }
   
   function stepLeft(){
-    megamanXSpeed = -3;
+    megamanXSpeed = (-3*xScaler);
     megamanDirection = -1;
   }
   function stepRight(){
-    megamanXSpeed = 3;
+    megamanXSpeed = (3*xScaler);
     megamanDirection = 1;
   }
   
   function shot1(){
       if (shot1Out){
-        
-        ellipse(shot1XPosition, shot1yPosition, 40);
+        if (shot1XPosition === 'unShot'){
+          shot1XPosition = megamanXPos;
+        }
+        if (shot1yPosition === 'unShot'){
+          shot1yPosition = megamanYPos;
+        }
+        ellipse(shot1XPosition, shot1yPosition, 20);
       }
   }
   
@@ -78,8 +89,7 @@
   
   function mousePressed(){
     if (mouseButton === LEFT){
-      console.log('Click!');
-      shot1Out = true
+      shot1Out = true;
     }
     if (mouseButton === CENTER){
       console.log('Clock!');
@@ -88,25 +98,25 @@
   
   //Allows Megaman to keep moving left or right after starting a jump
   function keepMoving(){
-    if (megamanDirection === 1){
+    if (megamanDirection === 1 && megamanXSpeed != 0){
       key = 'd';
     }
-    if (megamanDirection === -1){
+    if (megamanDirection === -1 && megamanXSpeed != 0){
       key = 'a';
     }
   }
   
   //Allows the Speed variables to actually take effect
   function moveStep(){
-    megamanXPos = megamanXPos + megamanXSpeed;
-    megamanYPos = megamanYPos + megamanYSpeed;
+    megamanXPos += megamanXSpeed;
+    megamanYPos += megamanYSpeed;
   }
   
   //Stops the player from dropping out of the bottom of the screen
   function touchingBottom(){
-    if (megamanYPos >= (height - megamanHeight)-7){
+    if (megamanYPos >= (height - megamanHeight)-(7*yScaler)){
       megamanYSpeed = 0;
-      megamanYPos = (height - megamanHeight) - 0.7;
+      megamanYPos = (height - megamanHeight) - (1*yScaler/2);
     }
   }
   
@@ -121,13 +131,13 @@
   // Dampens movement
   function cleanUpStep(){
     
-    megamanYSpeed = megamanYSpeed + 0.7;
+    megamanYSpeed = megamanYSpeed + (0.7*yScaler/2);
     
     if (megamanXSpeed > 0){
-      megamanXSpeed = megamanXSpeed - 1;
+      megamanXSpeed = megamanXSpeed - (1*xScaler/2);
     }
     if (megamanXSpeed < 0){
-      megamanXSpeed = megamanXSpeed + 1;
+      megamanXSpeed = megamanXSpeed + (1*xScaler/2);
     }
   }
   
@@ -162,6 +172,4 @@
     fill(10, 10, 246);
     rect(megamanXPos, megamanYPos, megamanWidth, megamanHeight);
     
-  }
-  
-  
+  } 
