@@ -23,6 +23,11 @@
   let shot1XPosition;
   let shot1yPosition;
   let shot1Direction;
+
+  let shot2Out;
+  let shot2XPosition;
+  let shot2yPosition;
+  let shot2Direction;
     //Varables for the screen
   let xScaler;
   let yScaler;
@@ -50,6 +55,11 @@
     shot1XPosition = 'unShot';
     shot1yPosition = 'unShot'; 
     shot1Direction = 'unShot';
+
+    shot2Out = false;
+    shot2XPosition = 'unShot';
+    shot2yPosition = 'unShot'; 
+    shot2Direction = 'unShot';
   }
   
   //Let Megaman jump
@@ -87,6 +97,28 @@
         }
       }
   }
+
+  function shot2(){
+    if (shot2Out){
+      if (shot2XPosition === 'unShot'){
+        shot2XPosition = megamanXPos;
+      }
+      if (shot2yPosition === 'unShot'){
+        shot2yPosition = megamanYPos;
+      }
+      if (shot2Direction === 'unShot'){
+        shot2Direction = megamanDirection;
+      }
+      ellipse(shot2XPosition, shot2yPosition, 20);
+      shot2XPosition += (yScaler*megamanShotSpeed)*shot2Direction;
+      if (shot2XPosition > windowWidth || shot2XPosition < screenLeft){
+        shot2Out = false;
+        shot2XPosition = 'unShot';
+        shot2yPosition = 'unShot';
+        shot2Direction = 'unShot';
+      }
+    }
+}
   
   function moveX(){
     if (keyIsPressed){
@@ -100,8 +132,14 @@
   }
   
   function mousePressed(){
+    if (!shot2Out && shot1Out) {
+      shot2Out = true;
+      console.log('yeet');
+    }
     if (mouseButton === LEFT){
-      shot1Out = true;
+      if (!shot1Out) {
+        shot1Out = true;
+      }
     }
     if (mouseButton === CENTER){
       console.log('Clock!');
@@ -185,8 +223,7 @@
     touchingBottom();
     cleanUpStep();
     shot1();
+    shot2();
     fill(10, 10, 246);
-    rect(megamanXPos, megamanYPos, megamanWidth, megamanHeight);
-    console.log(megamanXSpeed);
-    
+    rect(megamanXPos, megamanYPos, megamanWidth, megamanHeight); 
   } 
