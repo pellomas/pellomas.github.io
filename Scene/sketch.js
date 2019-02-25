@@ -22,6 +22,7 @@
   let shot1Out;
   let shot1XPosition;
   let shot1yPosition;
+  let shot1Direction;
     //Varables for the screen
   let xScaler;
   let yScaler;
@@ -33,8 +34,8 @@
     megamanXSpeed = 0;
 
     //Let's make Megaman's size congruent with the screen's(hopefully)!
-    xScaler = (windowWidth/500);
-    yScaler = (windowHeight/500);
+    xScaler = (windowWidth/900);
+    yScaler = (windowHeight/900);
 
     //Set Megaman's position to the middle of the screen at, like, a normal size
     megamanXPos = width / 2;
@@ -44,10 +45,11 @@
     megamanDirection = -1;
     
     //Set the variables for Megaman's shots
-    megamanShotSpeed = 1;
+    megamanShotSpeed = 5;
     shot1Out = false;
     shot1XPosition = 'unShot';
     shot1yPosition = 'unShot'; 
+    shot1Direction = 'unShot';
   }
   
   //Let Megaman jump
@@ -72,7 +74,17 @@
         if (shot1yPosition === 'unShot'){
           shot1yPosition = megamanYPos;
         }
+        if (shot1Direction === 'unShot'){
+          shot1Direction = megamanDirection;
+        }
         ellipse(shot1XPosition, shot1yPosition, 20);
+        shot1XPosition += (yScaler*megamanShotSpeed)*shot1Direction;
+        if (shot1XPosition > windowWidth || shot1XPosition < screenLeft){
+          shot1Out = false;
+          shot1XPosition = 'unShot';
+          shot1yPosition = 'unShot';
+          shot1Direction = 'unShot';
+        }
       }
   }
   
@@ -132,12 +144,16 @@
   function cleanUpStep(){
     
     megamanYSpeed = megamanYSpeed + (0.7*yScaler/2);
+
+    if (megamanXSpeed < 1 && megamanXSpeed > -1){
+      megamanXSpeed = 0;
+    }
     
     if (megamanXSpeed > 0){
-      megamanXSpeed = megamanXSpeed - (1*xScaler/2);
+      megamanXSpeed -= (1*xScaler/2);
     }
     if (megamanXSpeed < 0){
-      megamanXSpeed = megamanXSpeed + (1*xScaler/2);
+      megamanXSpeed += (1*xScaler/2);
     }
   }
   
@@ -171,5 +187,6 @@
     shot1();
     fill(10, 10, 246);
     rect(megamanXPos, megamanYPos, megamanWidth, megamanHeight);
+    console.log(megamanXSpeed);
     
   } 
