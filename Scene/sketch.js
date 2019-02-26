@@ -28,6 +28,11 @@
   let shot2XPosition;
   let shot2yPosition;
   let shot2Direction;
+
+  let shot3Out;
+  let shot3XPosition;
+  let shot3yPosition;
+  let shot3Direction;
     //Varables for the screen
   let xScaler;
   let yScaler;
@@ -50,7 +55,7 @@
     megamanDirection = -1;
     
     //Set the variables for Megaman's shots
-    megamanShotSpeed = 5;
+    megamanShotSpeed = xScaler * 10;
     shot1Out = false;
     shot1XPosition = 'unShot';
     shot1yPosition = 'unShot'; 
@@ -60,6 +65,11 @@
     shot2XPosition = 'unShot';
     shot2yPosition = 'unShot'; 
     shot2Direction = 'unShot';
+
+    shot3Out = false;
+    shot3XPosition = 'unShot';
+    shot3yPosition = 'unShot'; 
+    shot3Direction = 'unShot';
   }
   
   //Let Megaman jump
@@ -119,6 +129,36 @@
       }
     }
 }
+
+function shot3(){
+  if (shot3Out){
+    if (shot3XPosition === 'unShot'){
+      shot3XPosition = megamanXPos;
+    }
+    if (shot3yPosition === 'unShot'){
+      shot3yPosition = megamanYPos;
+    }
+    if (shot3Direction === 'unShot'){
+      shot3Direction = megamanDirection;
+    }
+    ellipse(shot3XPosition, shot3yPosition, 20);
+    shot3XPosition += (yScaler*megamanShotSpeed)*shot3Direction;
+    if (shot3XPosition > windowWidth || shot3XPosition < screenLeft){
+      shot3Out = false;
+      shot3XPosition = 'unShot';
+      shot3yPosition = 'unShot';
+      shot3Direction = 'unShot';
+    }
+  }
+}
+
+
+  function shoot(){
+    shot1();
+    shot2();
+    shot3();
+
+  }
   
   function moveX(){
     if (keyIsPressed){
@@ -131,12 +171,14 @@
     }
   }
   
-  function mousePressed(){
-    if (!shot2Out && shot1Out) {
-      shot2Out = true;
-      console.log('yeet');
-    }
+  function mousePressed(){  
     if (mouseButton === LEFT){
+      if (!shot3Out && shot2Out && shot1Out){
+        shot3Out = true;
+      }
+      if (!shot2Out && shot1Out) {
+        shot2Out = true;
+      }
       if (!shot1Out) {
         shot1Out = true;
       }
@@ -222,8 +264,7 @@
     touchingLeft();
     touchingBottom();
     cleanUpStep();
-    shot1();
-    shot2();
+    shoot();
     fill(10, 10, 246);
     rect(megamanXPos, megamanYPos, megamanWidth, megamanHeight); 
   } 
