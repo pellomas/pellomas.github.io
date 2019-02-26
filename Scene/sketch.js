@@ -89,15 +89,15 @@
   function shot1(){
       if (shot1Out){
         if (shot1XPosition === 'unShot'){
-          shot1XPosition = megamanXPos;
+          shot1XPosition = megamanXPos + (megamanWidth/2);
         }
         if (shot1yPosition === 'unShot'){
-          shot1yPosition = megamanYPos;
+          shot1yPosition = megamanYPos + (megamanHeight/2);
         }
         if (shot1Direction === 'unShot'){
           shot1Direction = megamanDirection;
         }
-        ellipse(shot1XPosition, shot1yPosition, 20);
+        ellipse(shot1XPosition, shot1yPosition, xScaler * 15);
         shot1XPosition += (yScaler*megamanShotSpeed)*shot1Direction;
         if (shot1XPosition > windowWidth || shot1XPosition < screenLeft){
           shot1Out = false;
@@ -111,15 +111,15 @@
   function shot2(){
     if (shot2Out){
       if (shot2XPosition === 'unShot'){
-        shot2XPosition = megamanXPos;
+        shot2XPosition = megamanXPos + (megamanWidth/2);
       }
       if (shot2yPosition === 'unShot'){
-        shot2yPosition = megamanYPos;
+        shot2yPosition = megamanYPos + (megamanHeight/2);
       }
       if (shot2Direction === 'unShot'){
         shot2Direction = megamanDirection;
       }
-      ellipse(shot2XPosition, shot2yPosition, 20);
+      ellipse(shot2XPosition, shot2yPosition, xScaler * 15);
       shot2XPosition += (yScaler*megamanShotSpeed)*shot2Direction;
       if (shot2XPosition > windowWidth || shot2XPosition < screenLeft){
         shot2Out = false;
@@ -133,15 +133,15 @@
 function shot3(){
   if (shot3Out){
     if (shot3XPosition === 'unShot'){
-      shot3XPosition = megamanXPos;
+      shot3XPosition = megamanXPos + (megamanWidth/2);
     }
     if (shot3yPosition === 'unShot'){
-      shot3yPosition = megamanYPos;
+      shot3yPosition = megamanYPos + (megamanHeight/2);
     }
     if (shot3Direction === 'unShot'){
       shot3Direction = megamanDirection;
     }
-    ellipse(shot3XPosition, shot3yPosition, 20);
+    ellipse(shot3XPosition, shot3yPosition, xScaler * 15);
     shot3XPosition += (yScaler*megamanShotSpeed)*shot3Direction;
     if (shot3XPosition > windowWidth || shot3XPosition < screenLeft){
       shot3Out = false;
