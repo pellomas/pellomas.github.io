@@ -71,6 +71,10 @@
     shot3yPosition = 'unShot'; 
     shot3Direction = 'unShot';
   }
+
+  function makeMeAMegaman(){
+    
+  }
   
   //Let Megaman jump
   function jump(){
@@ -225,7 +229,7 @@ function shot3(){
     
     megamanYSpeed = megamanYSpeed + (0.7*yScaler/2);
 
-    if (megamanXSpeed < 1 && megamanXSpeed > -1){
+    if (megamanXSpeed < 1 && megamanXSpeed > -1){ // Totally stops you if you slow down to -1 to 1 speed
       megamanXSpeed = 0;
     }
     
