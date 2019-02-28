@@ -6,6 +6,11 @@
 // - describe what you did to take this project "above and beyond"
 
 
+function preload(){
+  megamanStandingRight = loadImage('assets/Megaman Standing.png');
+  megamanStandingLeft = loadImage('assets/Megaman Standing Left.png');
+}
+
 //Define some variables
 	//Variables for where Megaman is and how fast he's moving
   let megamanYSpeed;
@@ -39,6 +44,7 @@
   
   function setup() {
     createCanvas(windowWidth, windowHeight);
+    fill(0);
     //Set the speed variables to 0 for later use
     megamanYSpeed = 0;
     megamanXSpeed = 0;
@@ -50,7 +56,7 @@
     //Set Megaman's position to the middle of the screen at, like, a normal size
     megamanXPos = width / 2;
     megamanYPos = height / 2;
-    megamanWidth = xScaler*64;
+    megamanWidth = xScaler*85;
     megamanHeight = yScaler*200;
     megamanDirection = -1;
     
@@ -73,7 +79,22 @@
   }
 
   function makeMeAMegaman(){
-    
+    if (megamanDirection === 1){
+      if (megamanYSpeed === 0){
+        image(megamanStandingRight, megamanXPos, megamanYPos, megamanWidth, megamanHeight);
+      }
+      else{
+        rect(megamanXPos, megamanYPos, megamanWidth, megamanHeight);
+      }
+    }
+    if (megamanDirection === -1){
+      if (megamanYSpeed === 0){
+        image(megamanStandingLeft, megamanXPos, megamanYPos, megamanWidth, megamanHeight);
+      }
+      else{
+        rect(megamanXPos, megamanYPos, megamanWidth, megamanHeight);
+      }
+    }
   }
   
   //Let Megaman jump
@@ -262,13 +283,12 @@ function shot3(){
   }
   
   function draw() {
-    background(220);
+    background(255);
     moveX();
     moveStep();
     touchingLeft();
-    touchingBottom();
     cleanUpStep();
+    touchingBottom();
     shoot();
-    fill(10, 10, 246);
-    rect(megamanXPos, megamanYPos, megamanWidth, megamanHeight); 
+    makeMeAMegaman();
   } 
