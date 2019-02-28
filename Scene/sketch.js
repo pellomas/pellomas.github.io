@@ -7,8 +7,15 @@
 
 
 function preload(){
-  megamanStandingRight = loadImage('assets/Megaman Standing.png');
-  megamanStandingLeft = loadImage('assets/Megaman Standing Left.png');
+  megamanStandingRight = loadImage('assets/megaman_facing_right.png');
+  megamanStandingLeft = loadImage('assets/megaman_facing_left.png');
+  megamanRunRightOne = loadImage('assets/megaman_right_run_frame1.png');
+  megamanRunLeftOne = loadImage('assets/megaman_left_run_frame1.png');
+  megamanShootRight = loadImage('assets/megaman_shoot_right.png');
+  megamanShootLeft = loadImage('assets/megaman_shoot_left.png');
+
+  megamanLemon = loadImage('assets/lemon.png');
+
 }
 
 //Define some variables
@@ -81,7 +88,17 @@ function preload(){
   function makeMeAMegaman(){
     if (megamanDirection === 1){
       if (megamanYSpeed === 0){
-        image(megamanStandingRight, megamanXPos, megamanYPos, megamanWidth, megamanHeight);
+        if (megamanXSpeed === 0){
+          if (shot1Out || shot2Out || shot3Out){
+            image(megamanShootRight, megamanXPos, megamanYPos, megamanWidth, megamanHeight);
+          }
+          else{
+            image(megamanStandingRight, megamanXPos, megamanYPos, megamanWidth, megamanHeight);
+          }
+        }
+        else{
+          image(megamanRunRightOne, megamanXPos, megamanYPos, megamanWidth, megamanHeight);
+        }
       }
       else{
         rect(megamanXPos, megamanYPos, megamanWidth, megamanHeight);
@@ -89,7 +106,17 @@ function preload(){
     }
     if (megamanDirection === -1){
       if (megamanYSpeed === 0){
-        image(megamanStandingLeft, megamanXPos, megamanYPos, megamanWidth, megamanHeight);
+        if (megamanXSpeed === 0){
+          if (shot1Out || shot2Out || shot3Out){
+            image(megamanShootLeft, megamanXPos, megamanYPos, megamanWidth, megamanHeight);
+          }
+          else{
+            image(megamanStandingLeft, megamanXPos, megamanYPos, megamanWidth, megamanHeight);
+          }
+        }
+        else{
+          image(megamanRunLeftOne, megamanXPos, megamanYPos, megamanWidth, megamanHeight);
+        }
       }
       else{
         rect(megamanXPos, megamanYPos, megamanWidth, megamanHeight);
@@ -283,7 +310,7 @@ function shot3(){
   }
   
   function draw() {
-    background(255);
+    background(100);
     moveX();
     moveStep();
     touchingLeft();
