@@ -300,9 +300,6 @@ function shot3(){
         shot1Out = true;
       }
     }
-    if (mouseButton === CENTER){
-      console.log('Clock!');
-    }
   }
   
   //Allows Megaman to keep moving left or right after starting a jump
