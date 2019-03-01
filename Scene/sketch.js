@@ -10,11 +10,26 @@ function preload(){
   megamanStandingRight = loadImage('assets/megaman_facing_right.png');
   megamanStandingLeft = loadImage('assets/megaman_facing_left.png');
   megamanRunRightOne = loadImage('assets/megaman_right_run_frame1.png');
+  megamanRunRightTwo = loadImage('assets/megaman_right_run_frame2.png');
+  megamanRunRightThree = loadImage('assets/megaman_right_run_frame3.png');
   megamanRunLeftOne = loadImage('assets/megaman_left_run_frame1.png');
+  megamanRunLeftTwo = loadImage('assets/megaman_left_run_frame2.png');
+  megamanRunLeftThree = loadImage('assets/megaman_left_run_frame3.png');
   megamanShootRight = loadImage('assets/megaman_shoot_right.png');
   megamanShootLeft = loadImage('assets/megaman_shoot_left.png');
+  megamanRunRightShoot = loadImage('assets/megaman_run_right_shoot_frame1.png');
+  megamanRunLeftShoot = loadImage('assets/megaman_run_left_shoot_frame1.png');
+  megamanTele = loadImage('assets/megaman_teleport.png');
+  megamanJumpRight = loadImage('assets/megaman_jump_right.png');
+  megamanJumpLeft = loadImage('assets/megaman_jump_left.png');
+  megamanDamageRight = loadImage('assets/megaman_damage_right.png');
+  megamanDamageLeft = loadImage('assets/megaman_damage_left.png');
+  megamanJumpShootRight = loadImage('assets/megaman_jump_shoot_right.png');
+  megamanJumpShootLeft = loadImage('assets/megaman_jump_shoot_left.png');
 
-  megamanLemon = loadImage('assets/lemon.png');
+  megamanShot = loadImage('assets/lemon.png');
+  enemyShot = loadImage('assets/enemy_shot.png');
+  bigEnemyShot = loadImage('assets/big_enemy_shot.png');
 
 }
 
@@ -24,6 +39,8 @@ function preload(){
   let megamanXSpeed;
   let megamanXPos;
   let megamanYPos;
+    //Whether Megaman can jump
+  let canJump;
     //Variables for what Megaman is
   let megamanWidth;
   let megamanHeight;
@@ -48,6 +65,15 @@ function preload(){
     //Varables for the screen
   let xScaler;
   let yScaler;
+
+
+
+
+
+
+
+  let animationFrameCounter = 0;
+
   
   function setup() {
     createCanvas(windowWidth, windowHeight);
@@ -55,6 +81,11 @@ function preload(){
     //Set the speed variables to 0 for later use
     megamanYSpeed = 0;
     megamanXSpeed = 0;
+    canJump = false
+
+    //Sprite animation arrays
+    rightRunLoop = [megamanRunRightOne, megamanRunRightThree, megamanRunRightTwo, megamanRunRightThree];
+    leftRunLoop = [megamanRunLeftOne, megamanRunLeftThree, megamanRunLeftTwo, megamanRunLeftThree];
 
     //Let's make Megaman's size congruent with the screen's(hopefully)!
     xScaler = (windowWidth/900);
@@ -65,7 +96,7 @@ function preload(){
     megamanYPos = height / 2;
     megamanWidth = xScaler*85;
     megamanHeight = yScaler*200;
-    megamanDirection = -1;
+    megamanDirection = 1;
     
     //Set the variables for Megaman's shots
     megamanShotSpeed = xScaler * 10;
@@ -85,23 +116,44 @@ function preload(){
     shot3Direction = 'unShot';
   }
 
+  function megamanRunLoop(){
+    if (frameCount % 15 === 0) {
+      animationFrameCounter += 1;
+    }
+    if (animationFrameCounter >= 4){
+      animationFrameCounter = 0;
+    }
+    image(rightRunLoop[animationFrameCounter], megamanXPos, megamanYPos, megamanWidth, megamanHeight);
+  }
+
   function makeMeAMegaman(){
     if (megamanDirection === 1){
       if (megamanYSpeed === 0){
         if (megamanXSpeed === 0){
           if (shot1Out || shot2Out || shot3Out){
-            image(megamanShootRight, megamanXPos, megamanYPos, megamanWidth, megamanHeight);
+           image(megamanShootRight, megamanXPos, megamanYPos, megamanWidth, megamanHeight);
           }
           else{
             image(megamanStandingRight, megamanXPos, megamanYPos, megamanWidth, megamanHeight);
           }
         }
         else{
-          image(megamanRunRightOne, megamanXPos, megamanYPos, megamanWidth, megamanHeight);
+          if (shot1Out || shot2Out || shot3Out){
+            image(megamanRunRightShoot, megamanXPos, megamanYPos, megamanWidth, megamanHeight);
+          }
+          else{
+            //image(megamanRunRightOne, megamanXPos, megamanYPos, megamanWidth, megamanHeight);
+            megamanRunLoop();
+          }
         }
       }
       else{
-        rect(megamanXPos, megamanYPos, megamanWidth, megamanHeight);
+        if (shot1Out || shot2Out || shot3Out){
+          image(megamanJumpShootRight, megamanXPos, megamanYPos, megamanWidth, megamanHeight);
+        }
+        else{
+          image(megamanJumpRight, megamanXPos, megamanYPos, megamanWidth, megamanHeight);
+        }
       }
     }
     if (megamanDirection === -1){
@@ -115,18 +167,31 @@ function preload(){
           }
         }
         else{
-          image(megamanRunLeftOne, megamanXPos, megamanYPos, megamanWidth, megamanHeight);
+          if (shot1Out || shot2Out || shot3Out){
+            image(megamanRunLeftShoot, megamanXPos, megamanYPos, megamanWidth, megamanHeight);
+          }
+          else{
+            image(megamanRunLeftOne, megamanXPos, megamanYPos, megamanWidth, megamanHeight);
+          }
         }
       }
       else{
-        rect(megamanXPos, megamanYPos, megamanWidth, megamanHeight);
+        if (shot1Out || shot2Out || shot3Out){
+          image(megamanJumpShootLeft, megamanXPos, megamanYPos, megamanWidth, megamanHeight);
+        }
+        else{
+          image(megamanJumpLeft, megamanXPos, megamanYPos, megamanWidth, megamanHeight);
+        }
       }
     }
   }
   
   //Let Megaman jump
   function jump(){
-    megamanYSpeed = megamanYSpeed - (15*yScaler);
+    if (canJump){
+      megamanYSpeed = megamanYSpeed - (15*yScaler);
+      canJump = false
+    }
   }
   
   function stepLeft(){
@@ -261,6 +326,7 @@ function shot3(){
     if (megamanYPos >= (height - megamanHeight)-(7*yScaler)){
       megamanYSpeed = 0;
       megamanYPos = (height - megamanHeight) - (1*yScaler/2);
+      canJump = true
     }
   }
   
