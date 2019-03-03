@@ -44,6 +44,7 @@ function preload(){
     //Variables for what Megaman is
   let megamanWidth;
   let megamanHeight;
+  let heightModifier;
     //The direction Megaman is facing
   let megamanDirection;
     //The variables for Megaman's shots
@@ -123,7 +124,13 @@ function preload(){
     if (animationFrameCounter >= 4){
       animationFrameCounter = 0;
     }
-    image(rightRunLoop[animationFrameCounter], megamanXPos, megamanYPos, megamanWidth, megamanHeight);
+    if (megamanDirection === 1){
+      image(rightRunLoop[animationFrameCounter], megamanXPos, megamanYPos, megamanHeight, megamanWidth, megamanHeight);
+    }
+    else{
+      image(leftRunLoop[animationFrameCounter], megamanXPos, megamanYPos, megamanHeight,  megamanWidth, megamanHeight);
+    }
+    
   }
 
   function makeMeAMegaman(){
@@ -142,7 +149,6 @@ function preload(){
             image(megamanRunRightShoot, megamanXPos, megamanYPos, megamanWidth, megamanHeight);
           }
           else{
-            //image(megamanRunRightOne, megamanXPos, megamanYPos, megamanWidth, megamanHeight);
             megamanRunLoop();
           }
         }
@@ -171,7 +177,7 @@ function preload(){
             image(megamanRunLeftShoot, megamanXPos, megamanYPos, megamanWidth, megamanHeight);
           }
           else{
-            image(megamanRunLeftOne, megamanXPos, megamanYPos, megamanWidth, megamanHeight);
+            megamanRunLoop();
           }
         }
       }
@@ -381,4 +387,4 @@ function shot3(){
     touchingBottom();
     shoot();
     makeMeAMegaman();
-  } 
+  }
