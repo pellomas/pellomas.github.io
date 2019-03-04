@@ -31,6 +31,10 @@ function preload(){
   enemyShot = loadImage('assets/enemy_shot.png');
   bigEnemyShot = loadImage('assets/big_enemy_shot.png');
 
+  sniperJoeRight = loadImage('assets/sniperjoe_sheild_right.png');
+  sniperJoeLeft = loadImage('assets/sniperjoe_sheild_left.png');
+  sniperJoeShootRight = loadImage('assets/sniperjoe_shoot_right.png');
+  sniperJoeShootLeft = loadImage('assets/sniperjoe_shoot_left.png');
 }
 
 //Define some variables
@@ -67,7 +71,11 @@ function preload(){
   let xScaler;
   let yScaler;
 
-
+  //Variables for the Sniper Joe
+  let sniperJoeHealth;
+  let enemyDamage;
+  let sniperJoeXPos;
+  let sniperJoeYPos;
 
 
 
@@ -115,6 +123,11 @@ function preload(){
     shot3XPosition = 'unShot';
     shot3yPosition = 'unShot'; 
     shot3Direction = 'unShot';
+
+
+    sniperJoeHealth = 8;
+    sniperJoeXPos = windowWidth * 0.75;
+    sniperJoeYPos = windowHeight - megamanHeight;
   }
 
   function megamanRunLoop(){
@@ -125,10 +138,10 @@ function preload(){
       animationFrameCounter = 0;
     }
     if (megamanDirection === 1){
-      image(rightRunLoop[animationFrameCounter], megamanXPos, megamanYPos, megamanHeight, megamanWidth, megamanHeight);
+      image(rightRunLoop[animationFrameCounter], megamanXPos, megamanYPos, megamanWidth, megamanHeight);
     }
     else{
-      image(leftRunLoop[animationFrameCounter], megamanXPos, megamanYPos, megamanHeight,  megamanWidth, megamanHeight);
+      image(leftRunLoop[animationFrameCounter], megamanXPos, megamanYPos, megamanWidth, megamanHeight);
     }
     
   }
@@ -138,7 +151,7 @@ function preload(){
       if (megamanYSpeed === 0){
         if (megamanXSpeed === 0){
           if (shot1Out || shot2Out || shot3Out){
-           image(megamanShootRight, megamanXPos, megamanYPos, megamanWidth, megamanHeight);
+           image(megamanShootRight, megamanXPos, megamanYPos, megamanWidth*1.4, megamanHeight);
           }
           else{
             image(megamanStandingRight, megamanXPos, megamanYPos, megamanWidth, megamanHeight);
@@ -146,7 +159,7 @@ function preload(){
         }
         else{
           if (shot1Out || shot2Out || shot3Out){
-            image(megamanRunRightShoot, megamanXPos, megamanYPos, megamanWidth, megamanHeight);
+            image(megamanRunRightShoot, megamanXPos, megamanYPos, megamanWidth*1.4, megamanHeight);
           }
           else{
             megamanRunLoop();
@@ -166,7 +179,7 @@ function preload(){
       if (megamanYSpeed === 0){
         if (megamanXSpeed === 0){
           if (shot1Out || shot2Out || shot3Out){
-            image(megamanShootLeft, megamanXPos, megamanYPos, megamanWidth, megamanHeight);
+            image(megamanShootLeft, megamanXPos-(megamanWidth*0.5), megamanYPos, megamanWidth*1.4, megamanHeight);
           }
           else{
             image(megamanStandingLeft, megamanXPos, megamanYPos, megamanWidth, megamanHeight);
@@ -174,7 +187,7 @@ function preload(){
         }
         else{
           if (shot1Out || shot2Out || shot3Out){
-            image(megamanRunLeftShoot, megamanXPos, megamanYPos, megamanWidth, megamanHeight);
+            image(megamanRunLeftShoot, megamanXPos-(megamanWidth*0.5), megamanYPos, megamanWidth*1.4, megamanHeight);
           }
           else{
             megamanRunLoop();
@@ -201,26 +214,26 @@ function preload(){
   }
   
   function stepLeft(){
-    megamanXSpeed = (-3*xScaler);
+    megamanXSpeed = (-4*xScaler);
     megamanDirection = -1;
   }
   function stepRight(){
-    megamanXSpeed = (3*xScaler);
+    megamanXSpeed = (4*xScaler);
     megamanDirection = 1;
   }
   
   function shot1(){
       if (shot1Out){
         if (shot1XPosition === 'unShot'){
-          shot1XPosition = megamanXPos + (megamanWidth/2);
+          shot1XPosition = megamanXPos + (megamanWidth/4);
         }
         if (shot1yPosition === 'unShot'){
-          shot1yPosition = megamanYPos + (megamanHeight/2);
+          shot1yPosition = megamanYPos + ((megamanHeight/2)-yScaler*30);
         }
         if (shot1Direction === 'unShot'){
           shot1Direction = megamanDirection;
         }
-        ellipse(shot1XPosition, shot1yPosition, xScaler * 15);
+        image(megamanShot, shot1XPosition, shot1yPosition, xScaler * 30, yScaler * 40);
         shot1XPosition += (yScaler*megamanShotSpeed)*shot1Direction;
         if (shot1XPosition > windowWidth || shot1XPosition < screenLeft){
           shot1Out = false;
@@ -234,15 +247,15 @@ function preload(){
   function shot2(){
     if (shot2Out){
       if (shot2XPosition === 'unShot'){
-        shot2XPosition = megamanXPos + (megamanWidth/2);
+        shot2XPosition = megamanXPos + (megamanWidth/4);
       }
       if (shot2yPosition === 'unShot'){
-        shot2yPosition = megamanYPos + (megamanHeight/2);
+        shot2yPosition = megamanYPos + ((megamanHeight/2)-yScaler*30);
       }
       if (shot2Direction === 'unShot'){
         shot2Direction = megamanDirection;
       }
-      ellipse(shot2XPosition, shot2yPosition, xScaler * 15);
+      image(megamanShot, shot2XPosition, shot2yPosition, xScaler * 30, yScaler * 40);
       shot2XPosition += (yScaler*megamanShotSpeed)*shot2Direction;
       if (shot2XPosition > windowWidth || shot2XPosition < screenLeft){
         shot2Out = false;
@@ -256,15 +269,15 @@ function preload(){
 function shot3(){
   if (shot3Out){
     if (shot3XPosition === 'unShot'){
-      shot3XPosition = megamanXPos + (megamanWidth/2);
+      shot3XPosition = megamanXPos + (megamanWidth/4);
     }
     if (shot3yPosition === 'unShot'){
-      shot3yPosition = megamanYPos + (megamanHeight/2);
+      shot3yPosition = megamanYPos + ((megamanHeight/2)-yScaler*30);
     }
     if (shot3Direction === 'unShot'){
       shot3Direction = megamanDirection;
     }
-    ellipse(shot3XPosition, shot3yPosition, xScaler * 15);
+    image(megamanShot, shot3XPosition, shot3yPosition, xScaler * 30, yScaler * 40);
     shot3XPosition += (yScaler*megamanShotSpeed)*shot3Direction;
     if (shot3XPosition > windowWidth || shot3XPosition < screenLeft){
       shot3Out = false;
@@ -286,6 +299,7 @@ function shot3(){
   function moveX(){
     if (keyIsPressed){
       if (key === 'a' || key === 'A'){
+        //console.log ("pressed a");
       stepLeft();
       }
       else if (key === 'd' || key === 'D'){
@@ -305,9 +319,6 @@ function shot3(){
       if (!shot1Out) {
         shot1Out = true;
       }
-    }
-    if (mouseButton === CENTER){
-      console.log('Clock!');
     }
   }
   
@@ -380,6 +391,22 @@ function shot3(){
   function keyReleased(){
     keepMoving();
   }
+
+  //Let's start to make some enemies--------------------------------------------------------------
+
+  function makeSniperJoe(){
+    if (sniperJoeHealth > 0){
+      if (sniperJoeXPos < megamanXPos){
+        image(sniperJoeRight, sniperJoeXPos, sniperJoeYPos, megamanWidth, megamanHeight);
+      }
+      else{
+        image(sniperJoeLeft, sniperJoeXPos, sniperJoeYPos, megamanWidth, megamanHeight);
+      }
+      if (shot1XPosition && shot1yPosition){
+        
+      }
+    }
+  }
   
   function draw() {
     background(100);
@@ -390,4 +417,5 @@ function shot3(){
     touchingBottom();
     shoot();
     makeMeAMegaman();
+    makeSniperJoe();
   }
