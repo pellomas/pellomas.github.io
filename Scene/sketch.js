@@ -3,7 +3,8 @@
 // 2/14/2019
 //
 // Extra for Experts:
-// - describe what you did to take this project "above and beyond"
+// I worked to make the sketch make sense with any size of screen by tying everything to a scaler
+// I choose to interpret 'try making your own shapes' in such a way that using a lot of sprites gets me credit
 
 
 function preload(){
@@ -71,16 +72,13 @@ function preload(){
   let xScaler;
   let yScaler;
 
-  //Variables for the Sniper Joe
-  let sniperJoeHealth;
-  let enemyDamage;
-  let sniperJoeXPos;
-  let sniperJoeYPos;
+  //Variables for the Sniper Joe (later)
+  //let sniperJoeHealth;
+  //let enemyDamage;
+  //let sniperJoeXPos;
+  //let sniperJoeYPos;
 
-
-
-
-
+  //The frame counter
   let animationFrameCounter = 0;
 
   
@@ -125,80 +123,96 @@ function preload(){
     shot3Direction = 'unShot';
 
 
-    sniperJoeHealth = 8;
-    sniperJoeXPos = windowWidth * 0.75;
-    sniperJoeYPos = windowHeight - megamanHeight;
+    //sniperJoeHealth = 8;
+    //sniperJoeXPos = windowWidth * 0.75;
+    //sniperJoeYPos = windowHeight - megamanHeight;
   }
 
+  //an animation for megaman's run
   function megamanRunLoop(){
-    if (frameCount % 15 === 0) {
+    if (frameCount % 15 === 0) {// every 15 frames
       animationFrameCounter += 1;
     }
-    if (animationFrameCounter >= 4){
+    if (animationFrameCounter >= 4){//resets the counter every 4 cycles
       animationFrameCounter = 0;
     }
-    if (megamanDirection === 1){
+    if (megamanDirection === 1){// if facing right
+      //draw the next right-facing image in the animation
       image(rightRunLoop[animationFrameCounter], megamanXPos, megamanYPos, megamanWidth, megamanHeight);
     }
-    else{
+    else{//If facing left
+      //draw the next left-facing image in the animation
       image(leftRunLoop[animationFrameCounter], megamanXPos, megamanYPos, megamanWidth, megamanHeight);
     }
     
   }
 
+  //draw the correct sprite of Megaman for the situation
   function makeMeAMegaman(){
-    if (megamanDirection === 1){
-      if (megamanYSpeed === 0){
-        if (megamanXSpeed === 0){
-          if (shot1Out || shot2Out || shot3Out){
+    if (megamanDirection === 1){//checks if facing right
+      if (megamanYSpeed === 0){//checks if moving up or down
+        if (megamanXSpeed === 0){//checks if moving left or right
+          if (shot1Out || shot2Out || shot3Out){//checks if shooting
+            //draws the sprite for megaman shooting right
            image(megamanShootRight, megamanXPos, megamanYPos, megamanWidth*1.4, megamanHeight);
           }
           else{
+            //draws the sprite of megaman standing still facing right
             image(megamanStandingRight, megamanXPos, megamanYPos, megamanWidth, megamanHeight);
           }
         }
-        else{
-          if (shot1Out || shot2Out || shot3Out){
+        else{//If moving left or right
+          if (shot1Out || shot2Out || shot3Out){//checks if shooting
+            //draws the sprite of megaman running and shooting right
             image(megamanRunRightShoot, megamanXPos, megamanYPos, megamanWidth*1.4, megamanHeight);
           }
-          else{
+          else{//if not shooting
+            //draw the animation of megaman runnning
             megamanRunLoop();
           }
         }
       }
-      else{
-        if (shot1Out || shot2Out || shot3Out){
+      else{//If moving up or down
+        if (shot1Out || shot2Out || shot3Out){//If shooting
+          //draws the sprite of megaman jumping and shooting right
           image(megamanJumpShootRight, megamanXPos, megamanYPos, megamanWidth, megamanHeight);
         }
-        else{
+        else{// if not shooting
+          // draws the sprite of megaman jumping to the right
           image(megamanJumpRight, megamanXPos, megamanYPos, megamanWidth, megamanHeight);
         }
       }
     }
-    if (megamanDirection === -1){
-      if (megamanYSpeed === 0){
-        if (megamanXSpeed === 0){
-          if (shot1Out || shot2Out || shot3Out){
+    if (megamanDirection === -1){// If facing left
+      if (megamanYSpeed === 0){// If not moving up or down
+        if (megamanXSpeed === 0){// If not moving left or right
+          if (shot1Out || shot2Out || shot3Out){// if shooting
+            // draw the sprite of megaman shooting left
             image(megamanShootLeft, megamanXPos-(megamanWidth*0.5), megamanYPos, megamanWidth*1.4, megamanHeight);
           }
-          else{
+          else{// if not shooting
+            //draw the sprite of megaman standing and facing left
             image(megamanStandingLeft, megamanXPos, megamanYPos, megamanWidth, megamanHeight);
           }
         }
-        else{
-          if (shot1Out || shot2Out || shot3Out){
+        else{//If moving left or right
+          if (shot1Out || shot2Out || shot3Out){// if shooting
+            //Draw the sprite of megaman running left and shooting
             image(megamanRunLeftShoot, megamanXPos-(megamanWidth*0.5), megamanYPos, megamanWidth*1.4, megamanHeight);
           }
-          else{
+          else{//If not shooting
+            //Draw the animation of megaman running
             megamanRunLoop();
           }
         }
       }
-      else{
-        if (shot1Out || shot2Out || shot3Out){
+      else{//If moving up or down
+        if (shot1Out || shot2Out || shot3Out){//if shooting
+          //draw the sprite of Megaman jumping left and shooting
           image(megamanJumpShootLeft, megamanXPos, megamanYPos, megamanWidth, megamanHeight);
         }
-        else{
+        else{//If not shooting
+          //Draw the sprite of Megaman jumping left
           image(megamanJumpLeft, megamanXPos, megamanYPos, megamanWidth, megamanHeight);
         }
       }
@@ -209,10 +223,11 @@ function preload(){
   function jump(){
     if (canJump){
       megamanYSpeed = megamanYSpeed - (15*yScaler);
-      canJump = false
+      canJump = false//needs to touch ground to reset this variable
     }
   }
   
+  //Change the player's direction and speed either right or left
   function stepLeft(){
     megamanXSpeed = (-4*xScaler);
     megamanDirection = -1;
@@ -223,7 +238,7 @@ function preload(){
   }
   
   function shot1(){
-      if (shot1Out){
+      if (shot1Out){//if the player shoots and the shot's variables are equal to 'unShot', start the shot up
         if (shot1XPosition === 'unShot'){
           shot1XPosition = megamanXPos + (megamanWidth/4);
         }
@@ -233,8 +248,10 @@ function preload(){
         if (shot1Direction === 'unShot'){
           shot1Direction = megamanDirection;
         }
+        //move the shot along the screen
         image(megamanShot, shot1XPosition, shot1yPosition, xScaler * 30, yScaler * 40);
         shot1XPosition += (yScaler*megamanShotSpeed)*shot1Direction;
+        //check if the shot has gone offscreen. If it has, get rid of it.
         if (shot1XPosition > windowWidth || shot1XPosition < screenLeft){
           shot1Out = false;
           shot1XPosition = 'unShot';
@@ -245,7 +262,7 @@ function preload(){
   }
 
   function shot2(){
-    if (shot2Out){
+    if (shot2Out){//if the player shoots and the shot's variables are equal to 'unShot', start the shot up
       if (shot2XPosition === 'unShot'){
         shot2XPosition = megamanXPos + (megamanWidth/4);
       }
@@ -255,8 +272,10 @@ function preload(){
       if (shot2Direction === 'unShot'){
         shot2Direction = megamanDirection;
       }
+      //move the shot along the screen
       image(megamanShot, shot2XPosition, shot2yPosition, xScaler * 30, yScaler * 40);
       shot2XPosition += (yScaler*megamanShotSpeed)*shot2Direction;
+      //check if the shot has gone offscreen. If it has, get rid of it.
       if (shot2XPosition > windowWidth || shot2XPosition < screenLeft){
         shot2Out = false;
         shot2XPosition = 'unShot';
@@ -267,7 +286,7 @@ function preload(){
 }
 
 function shot3(){
-  if (shot3Out){
+  if (shot3Out){//if the player shoots and the shot's variables are equal to 'unShot', start the shot up
     if (shot3XPosition === 'unShot'){
       shot3XPosition = megamanXPos + (megamanWidth/4);
     }
@@ -277,8 +296,10 @@ function shot3(){
     if (shot3Direction === 'unShot'){
       shot3Direction = megamanDirection;
     }
+    //move the shot along the screen
     image(megamanShot, shot3XPosition, shot3yPosition, xScaler * 30, yScaler * 40);
     shot3XPosition += (yScaler*megamanShotSpeed)*shot3Direction;
+    //check if the shot has gone offscreen. If it has, get rid of it.
     if (shot3XPosition > windowWidth || shot3XPosition < screenLeft){
       shot3Out = false;
       shot3XPosition = 'unShot';
@@ -288,7 +309,7 @@ function shot3(){
   }
 }
 
-
+//Calls all three shoot functions so I didn't have to write all three out
   function shoot(){
     shot1();
     shot2();
@@ -296,10 +317,10 @@ function shot3(){
 
   }
   
+  //If the player hits a, move them left. If they hit d, move them right
   function moveX(){
     if (keyIsPressed){
       if (key === 'a' || key === 'A'){
-        //console.log ("pressed a");
       stepLeft();
       }
       else if (key === 'd' || key === 'D'){
@@ -308,9 +329,10 @@ function shot3(){
     }
   }
   
+  //Makes the player shoot when the mouse is clicked
   function mousePressed(){  
     if (mouseButton === LEFT){
-      if (!shot3Out && shot2Out && shot1Out){
+      if (!shot3Out && shot2Out && shot1Out){//chech if shot 3 is out, then check shot 2, then shot 1
         shot3Out = true;
       }
       if (!shot2Out && shot1Out) {
@@ -364,7 +386,7 @@ function shot3(){
       megamanXSpeed = 0;
     }
     
-    if (megamanXSpeed > 0){
+    if (megamanXSpeed > 0){//Lessens movement in a slightly more gradual way than a total stop
       megamanXSpeed -= (1*xScaler/2);
     }
     if (megamanXSpeed < 0){
@@ -394,19 +416,19 @@ function shot3(){
 
   //Let's start to make some enemies--------------------------------------------------------------
 
-  function makeSniperJoe(){
-    if (sniperJoeHealth > 0){
-      if (sniperJoeXPos < megamanXPos){
-        image(sniperJoeRight, sniperJoeXPos, sniperJoeYPos, megamanWidth, megamanHeight);
-      }
-      else{
-        image(sniperJoeLeft, sniperJoeXPos, sniperJoeYPos, megamanWidth, megamanHeight);
-      }
-      if (shot1XPosition && shot1yPosition){
-        
-      }
-    }
-  }
+  //function makeSniperJoe(){
+  //  if (sniperJoeHealth > 0){
+  //    if (sniperJoeXPos < megamanXPos){
+  //      image(sniperJoeRight, sniperJoeXPos, sniperJoeYPos, megamanWidth, megamanHeight);
+  //    }
+  //    else{
+  //      image(sniperJoeLeft, sniperJoeXPos, sniperJoeYPos, megamanWidth, megamanHeight);
+  //    }
+  //    if (shot1XPosition && shot1yPosition){
+  //      
+  //    }
+  //  }
+  //}
   
   function draw() {
     background(100);
@@ -417,5 +439,5 @@ function shot3(){
     touchingBottom();
     shoot();
     makeMeAMegaman();
-    makeSniperJoe();
+   // makeSniperJoe();
   }
