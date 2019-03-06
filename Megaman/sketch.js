@@ -72,11 +72,11 @@ function preload(){
   let xScaler;
   let yScaler;
 
-  //Variables for the Sniper Joe (later)
-  //let sniperJoeHealth;
-  //let enemyDamage;
-  //let sniperJoeXPos;
-  //let sniperJoeYPos;
+  //Variables for the Sniper Joe 
+  let sniperJoeHealth;
+  let enemyDamage;
+  let sniperJoeXPos;
+  let sniperJoeYPos;
 
   //The frame counter
   let animationFrameCounter = 0;
@@ -123,9 +123,9 @@ function preload(){
     shot3Direction = 'unShot';
 
 
-    //sniperJoeHealth = 8;
-    //sniperJoeXPos = windowWidth * 0.75;
-    //sniperJoeYPos = windowHeight - megamanHeight;
+    sniperJoeHealth = 8;
+    sniperJoeXPos = windowWidth * 0.75;
+    sniperJoeYPos = windowHeight - megamanHeight;
   }
 
   //an animation for megaman's run
@@ -416,19 +416,19 @@ function shot3(){
 
   //Let's start to make some enemies--------------------------------------------------------------
 
-  //function makeSniperJoe(){
-  //  if (sniperJoeHealth > 0){
-  //    if (sniperJoeXPos < megamanXPos){
-  //      image(sniperJoeRight, sniperJoeXPos, sniperJoeYPos, megamanWidth, megamanHeight);
-  //    }
-  //    else{
-  //      image(sniperJoeLeft, sniperJoeXPos, sniperJoeYPos, megamanWidth, megamanHeight);
-  //    }
-  //    if (shot1XPosition && shot1yPosition){
-  //      
-  //    }
-  //  }
-  //}
+  function makeSniperJoe(){
+    if (sniperJoeHealth > 0){
+      if (sniperJoeXPos < megamanXPos){
+        image(sniperJoeRight, sniperJoeXPos, sniperJoeYPos, megamanWidth, megamanHeight);
+      }
+      else{
+        image(sniperJoeLeft, sniperJoeXPos, sniperJoeYPos, megamanWidth, megamanHeight);
+      }
+      if (shot1XPosition && shot1yPosition){
+        
+      }
+    }
+  }
   
   function draw() {
     background(100);
@@ -439,5 +439,5 @@ function shot3(){
     touchingBottom();
     shoot();
     makeMeAMegaman();
-   // makeSniperJoe();
+    makeSniperJoe();
   }
