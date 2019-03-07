@@ -72,6 +72,13 @@ function preload(){
   let xScaler;
   let yScaler;
 
+    //Variables for Rush
+  let rushX;
+  let rushY;
+  let rushBounce;
+  let rushCalled;
+  
+
   //Variables for the Sniper Joe 
   let sniperJoeHealth;
   let enemyDamage;
@@ -414,9 +421,13 @@ function shot3(){
     keepMoving();
   }
 
+  function summonRush(){
+
+  }
+
   //Let's start to make some enemies--------------------------------------------------------------
 
-  function makeSniperJoe(){
+  function makeSniperJoe(joeX, joeY){
     if (sniperJoeHealth > 0){
       if (sniperJoeXPos < megamanXPos){
         image(sniperJoeRight, sniperJoeXPos, sniperJoeYPos, megamanWidth, megamanHeight);
