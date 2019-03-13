@@ -28,13 +28,11 @@ let shot3Out;
 let shot3XPosition;
 let shot3yPosition;
 let shot3Direction;
-      //Varables for the screen
-let xScaler;
-let yScaler;
+
 
 let animationFrameCounter;
  
-function initializeVariables() {
+function initializeMegamanVariables() {
   //The frame counter
    animationFrameCounter = 0;
    
@@ -289,14 +287,7 @@ function shot3(){
     megamanYPos += megamanYSpeed;
   }
   
-  //Stops the player from dropping out of the bottom of the screen
-  function touchingBottom(){
-    if (megamanYPos >= (height - megamanHeight)-(7*yScaler)){
-      megamanYSpeed = 0;
-      megamanYPos = (height - megamanHeight) - (1*yScaler/2);
-      canJump = true
-    }
-  }
+  
   
   //Stops the player from going offstage to the left
   function touchingLeft(){
@@ -341,4 +332,13 @@ function shot3(){
   //when you release space during a jump
   function keyReleased(){
     keepMoving();
+  }
+  
+  //Stops the player from dropping out of the bottom of the screen
+  function touchingBottom(){
+    if (megamanYPos >= (height - megamanHeight)-(7*yScaler)){
+      megamanYSpeed = 0;
+      megamanYPos = (height - megamanHeight) - (1*yScaler/2);
+      canJump = true
+    }
   }
