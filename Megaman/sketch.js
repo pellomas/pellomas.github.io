@@ -16,6 +16,8 @@
   let rushY;
   let rushBounce;
   let rushCalled;
+  let rushDuration;
+  let lastRushCall;
   
 
   //Variables for the Sniper Joe 
@@ -25,6 +27,7 @@
   let sniperJoeYPos;
 
   function setup() {
+    document.addEventListener("contextmenu", event => event.preventDefault());
     createCanvas(windowWidth, windowHeight);
     fill(0);
     initializeVariables();
@@ -34,17 +37,33 @@
     sniperJoeXPos = windowWidth * 0.75;
     sniperJoeYPos = windowHeight - megamanHeight;
 
+    rushX = 'unCalled';
+    rushY = 'unCalled';
+    rushBounce = 25
+    rushCalled = false
+    rushDuration = 2000
+    lastRushCall = 0
+
+
     
   }
 
   function summonRush(){
     if (!rushCalled){
       rushX = mouseX;
+      rushY = mouseY;
+      rushCalled = true;
+      lastRushCall = millis();
     }
   }
 
   function displayRush(){
-    image()
+    if (rushCalled) {
+      image(rushRight, rushX, rushY, megamanWidth, megamanHeight)
+      if (millis() > (lastRushCall + 1000)){
+        rushCalled = false;
+      }
+    }
   }
 
   //Let's start to make some enemies--------------------------------------------------------------
@@ -66,7 +85,7 @@
   //Makes the player shoot when the mouse is clicked
   function mousePressed(){  
     if (mouseButton === LEFT){
-      if (!shot3Out && shot2Out && shot1Out){//chech if shot 3 is out, then check shot 2, then shot 1
+      if (!shot3Out && shot2Out && shot1Out){//check if shot 3 is out, then check shot 2, then shot 1
         shot3Out = true;
       }
       if (!shot2Out && shot1Out) {
@@ -76,7 +95,7 @@
         shot1Out = true;
       }
     }
-    if (mouseButton === CENTER){
+    if (mouseButton === RIGHT){
       summonRush();
     }
   }
@@ -94,5 +113,6 @@
       shoot();
       makeMeAMegaman();
       makeSniperJoe();
+      displayRush();
     }
   }
