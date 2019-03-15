@@ -12,13 +12,24 @@
 
 
     //Variables for Rush
-  let rushX;
-  let rushY;
-  let rushBounce;
-  let rushCalled;
-  let rushDuration;
-  let lastRushCall;
+  // let rushX;
+  // let rushY;
+  // let rush
+  // let rushBounce;
+  // let rushCalled;
+  // let rushDuration;
+  // let lastRushCall;
   
+  let rush = {
+    Xpos: 'unCalled',
+    Ypos: 'unCalled',
+    speed: 10*yScaler,
+    bounce: 25*yScaler,
+    called: false,
+    falling: false,
+    duration: 2000,
+    lastCall: 0,
+  };
 
   //Variables for the Sniper Joe 
   let sniperJoeHealth;
@@ -37,32 +48,45 @@
     sniperJoeXPos = windowWidth * 0.75;
     sniperJoeYPos = windowHeight - megamanHeight;
 
-    rushX = 'unCalled';
-    rushY = 'unCalled';
-    rushBounce = 25
-    rushCalled = false
-    rushDuration = 2000
-    lastRushCall = 0
+    // rushX = 'unCalled';
+    // rushY = 'unCalled';
+    // rushBounce = 25
+    // rushCalled = false
+    // rushDuration = 2000
+    // lastRushCall = 0
 
 
     
   }
 
+  function rushFall(){
+    if (rush.Ypos > windowHeight){
+      rush.falling = false;
+    }
+    if(rush.falling){
+      rush.Ypos -= rush.speed;
+    }
+    else{
+      rush.lastCall = millis();
+    }
+  }
+
   function summonRush(){
-    if (!rushCalled){
-      rushX = mouseX;
-      rushY = mouseY;
-      rushCalled = true;
-      lastRushCall = millis();
+    if (!rush.called){
+      rush.falling = true
+      rush.Xpos = mouseX;
+      rush.Ypos = 0;
+      rush.called = true;
     }
   }
 
   function displayRush(){
-    if (rushCalled) {
-      image(rushRight, rushX, rushY, megamanWidth, megamanHeight)
-      if (millis() > (lastRushCall + 1000)){
-        rushCalled = false;
+    if (rush.called) {
+      image(rushRight, rush.Xpos, rush.Ypos, megamanWidth, megamanHeight)
+      if (millis() > (rush.lastCall + 1000)){
+        rush.called = false;
       }
+      rushFall();
     }
   }
 
@@ -114,5 +138,7 @@
       makeMeAMegaman();
       makeSniperJoe();
       displayRush();
+      console.log(rush.called);
+      console.log(rush.falling);
     }
   }
