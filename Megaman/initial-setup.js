@@ -1,3 +1,37 @@
+let megamanStandingRight;
+let megamanStandingLeft;
+let megamanRunRightOne;
+let megamanRunRightTwo;
+let megamanRunRightThree;
+let megamanRunLeftOne;
+let megamanRunLeftTwo;
+let megamanRunLeftThree;
+let megamanShootRight;
+let megamanShootLeft;
+let megamanRunRightShoot;
+let megamanRunLeftShoot;
+let megamanTele;
+let megamanJumpRight;
+let megamanJumpLeft;
+let megamanDamageRight;
+let megamanDamageLeft;
+let megamanJumpShootRight;
+let megamanJumpShootLeft;
+
+let megamanShot;
+let enemyShot;
+let bigEnemyShot;
+
+let sniperJoeRight;
+let sniperJoeLeft;
+let sniperJoeShootRight;
+let sniperJoeShootLeft;
+
+let rushRight;
+let rushLeft;
+let rushSpringRight;
+let rushSpringLeft;
+
 function preload(){
     megamanStandingRight = loadImage('assets/megaman_facing_right.png');
     megamanStandingLeft = loadImage('assets/megaman_facing_left.png');

@@ -28,7 +28,6 @@
     called: false,
     falling: false,
     duration: 2000,
-    lastCall: 0,
   };
 
   //Variables for the Sniper Joe 
@@ -47,16 +46,6 @@
     sniperJoeHealth = 8;
     sniperJoeXPos = windowWidth * 0.75;
     sniperJoeYPos = windowHeight - megamanHeight;
-
-    // rushX = 'unCalled';
-    // rushY = 'unCalled';
-    // rushBounce = 25
-    // rushCalled = false
-    // rushDuration = 2000
-    // lastRushCall = 0
-
-
-    
   }
 
   function rushFall(){
@@ -65,9 +54,6 @@
     }
     if(rush.falling){
       rush.Ypos -= rush.speed;
-    }
-    else{
-      rush.lastCall = millis();
     }
   }
 
@@ -80,12 +66,18 @@
     }
   }
 
+  function dismissRush(){
+    rush.called = false;
+    rush.falling = false;
+    rush.Xpos = 'unCalled';
+    rush,Ypos = 'unCalled'; 
+    console.log('dismissed');
+  }
+
   function displayRush(){
     if (rush.called) {
       image(rushRight, rush.Xpos, rush.Ypos, megamanWidth, megamanHeight)
-      if (millis() > (rush.lastCall + 1000)){
-        rush.called = false;
-      }
+      window.setTimeout(dismissRush(), 20000);
       rushFall();
     }
   }
