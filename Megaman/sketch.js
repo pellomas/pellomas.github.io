@@ -6,24 +6,11 @@
 // I worked to make the sketch make sense with any size of screen by tying everything to a scaler
 // I choose to interpret 'try making your own shapes' in such a way that using a lot of sprites gets me credit
 
-
-
-
-
-
-    //Variables for Rush
-  // let rushX;
-  // let rushY;
-  // let rush
-  // let rushBounce;
-  // let rushCalled;
-  // let rushDuration;
-  // let lastRushCall;
   
   let rush = {
-    Xpos: 'unCalled',
-    Ypos: 'unCalled',
-    speed: 10*yScaler,
+    xPosition: 'unCalled',
+    yPosition: 0,
+    speed: 5,//*yScaler,
     bounce: 25*yScaler,
     called: false,
     falling: false,
@@ -49,19 +36,21 @@
   }
 
   function rushFall(){
-    if (rush.Ypos > windowHeight){
+    rush.falling = true;
+    if (rush.yPosition > windowHeight){
       rush.falling = false;
     }
     if(rush.falling){
-      rush.Ypos -= rush.speed;
+      rush.yPosition += rush.speed;
+      console.log(rush.yPosition);
     }
   }
 
   function summonRush(){
     if (!rush.called){
       rush.falling = true
-      rush.Xpos = mouseX;
-      rush.Ypos = 0;
+      rush.xPosition = mouseX;
+      rush.yPosition = 0;
       rush.called = true;
     }
   }
@@ -69,14 +58,13 @@
   function dismissRush(){
     rush.called = false;
     rush.falling = false;
-    rush.Xpos = 'unCalled';
-    rush,Ypos = 'unCalled'; 
-    console.log('dismissed');
+    rush.xPosition = 'unCalled';
+    rush.yPosition = 0; 
   }
 
   function displayRush(){
     if (rush.called) {
-      image(rushRight, rush.Xpos, rush.Ypos, megamanWidth, megamanHeight)
+      image(rushRight, rush.xPosition, rush.yPosition, megamanWidth, megamanHeight)
       window.setTimeout(dismissRush(), 20000);
       rushFall();
     }
@@ -121,6 +109,7 @@
   function draw() {
     background(100);
     if (gameMode){
+      print(keyCode);
       moveX();
       moveStep();
       touchingLeft();
@@ -130,7 +119,10 @@
       makeMeAMegaman();
       makeSniperJoe();
       displayRush();
-      console.log(rush.called);
-      console.log(rush.falling);
+      //console.log(rush.falling);
     }
+  }
+
+  function windowResized() {
+    createCanvas(windowWidth, windowHeight);
   }

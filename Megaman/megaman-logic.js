@@ -29,6 +29,8 @@ let shot3XPosition;
 let shot3yPosition;
 let shot3Direction;
 
+let isMovingRight, isMovingLeft;
+
 
 let animationFrameCounter;
  
@@ -170,14 +172,16 @@ function initializeMegamanVariables() {
   }
   
   //Change the player's direction and speed either right or left
-  function stepLeft(){
-    megamanXSpeed = (-4*xScaler);
-    megamanDirection = -1;
-  }
-  function stepRight(){
-    megamanXSpeed = (4*xScaler);
-    megamanDirection = 1;
-  }
+    function moveX(){
+      if (isMovingRight) {
+        megamanXSpeed = (4*xScaler);
+        megamanDirection = 1;
+      }
+      if (isMovingLeft) {
+        megamanXSpeed = (-4*xScaler);
+        megamanDirection = -1
+      }
+    }
   
   function shot1(){
       if (shot1Out){//if the player shoots and the shot's variables are equal to 'unShot', start the shot up
@@ -258,26 +262,21 @@ function shot3(){
     shot3();
 
   }
-  
-  //If the player hits a, move them left. If they hit d, move them right
-  function moveX(){
-    if (keyIsPressed){
-      if (key === 'a' || key === 'A'){
-      stepLeft();
-      }
-      else if (key === 'd' || key === 'D'){
-      stepRight();
-      }
+
+  function keyPressed() {
+    if (keyCode === LEFT_ARROW) {
+      isMovingLeft = true;
+    }
+    if (keyCode === RIGHT_ARROW) {
+      isMovingRight = true;
     }
   }
-  
-  //Allows Megaman to keep moving left or right after starting a jump
-  function keepMoving(){
-    if (megamanDirection === 1 && megamanXSpeed != 0){
-      key = 'd';
+  function keyReleased() {
+    if (keyCode === LEFT_ARROW) {
+      isMovingLeft = false;
     }
-    if (megamanDirection === -1 && megamanXSpeed != 0){
-      key = 'a';
+    if (keyCode === RIGHT_ARROW) {
+      isMovingRight = false;
     }
   }
   
@@ -317,7 +316,6 @@ function shot3(){
   function keyTyped(){
     // Make Megaman jump
     if (key === ' '){
-      keepMoving();
       jump();
     }
     //changes his direction when you press a direction key
@@ -327,11 +325,6 @@ function shot3(){
     if (key === 'd' || key === 'D'){
       megamanDirection = 1;
     }
-  }
-  //I desperately want the movement to stay smooth 
-  //when you release space during a jump
-  function keyReleased(){
-    keepMoving();
   }
   
   //Stops the player from dropping out of the bottom of the screen
