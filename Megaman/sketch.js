@@ -7,15 +7,7 @@
 // I choose to interpret 'try making your own shapes' in such a way that using a lot of sprites gets me credit
 
   
-  let rush = {
-    xPosition: 'unCalled',
-    yPosition: 0,
-    speed: 5,//*yScaler,
-    bounce: 25*yScaler,
-    called: false,
-    falling: false,
-    duration: 2000,
-  };
+  let rush;
 
   //Variables for the Sniper Joe 
   let sniperJoeHealth;
@@ -33,16 +25,27 @@
     sniperJoeHealth = 8;
     sniperJoeXPos = windowWidth * 0.75;
     sniperJoeYPos = windowHeight - megamanHeight;
+
+    rush = {
+      xPosition: 'unCalled',
+      yPosition: 0,
+      height: megamanHeight,
+      speed: 5*yScaler,
+      bounce: 25*yScaler,
+      called: false,
+      falling: false,
+      duration: 2000,
+    };
   }
 
   function rushFall(){
     rush.falling = true;
-    if (rush.yPosition > windowHeight){
+    if (rush.yPosition > (windowHeight-rush.height)){
       rush.falling = false;
+      window.setTimeout(dismissRush, 2000);
     }
     if(rush.falling){
       rush.yPosition += rush.speed;
-      console.log(rush.yPosition);
     }
   }
 
@@ -65,7 +68,7 @@
   function displayRush(){
     if (rush.called) {
       image(rushRight, rush.xPosition, rush.yPosition, megamanWidth, megamanHeight)
-      window.setTimeout(dismissRush(), 20000);
+      //window.setTimeout(20000, dismissRush());
       rushFall();
     }
   }
@@ -109,7 +112,6 @@
   function draw() {
     background(100);
     if (gameMode){
-      print(keyCode);
       moveX();
       moveStep();
       touchingLeft();
@@ -119,10 +121,11 @@
       makeMeAMegaman();
       makeSniperJoe();
       displayRush();
-      //console.log(rush.falling);
     }
   }
 
   function windowResized() {
     createCanvas(windowWidth, windowHeight);
+    xScaler = (windowWidth/900);
+    yScaler = (windowHeight/900);
   }

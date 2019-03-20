@@ -264,18 +264,18 @@ function shot3(){
   }
 
   function keyPressed() {
-    if (keyCode === LEFT_ARROW) {
+    if (key === 'a' || key === 'A') {
       isMovingLeft = true;
     }
-    if (keyCode === RIGHT_ARROW) {
+    if (key === 'd' || key === 'D') {
       isMovingRight = true;
     }
   }
   function keyReleased() {
-    if (keyCode === LEFT_ARROW) {
+    if (key === 'a' || key === 'A') {
       isMovingLeft = false;
     }
-    if (keyCode === RIGHT_ARROW) {
+    if (key === 'd' || key === 'D') {
       isMovingRight = false;
     }
   }
