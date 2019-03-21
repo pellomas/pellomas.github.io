@@ -30,7 +30,8 @@
       xPosition: 'unCalled',
       yPosition: 0,
       height: megamanHeight,
-      speed: 5*yScaler,
+      width: megamanWidth,
+      speed: 20*yScaler,
       bounce: 25*yScaler,
       called: false,
       falling: false,
@@ -39,10 +40,10 @@
   }
 
   function rushFall(){
-    rush.falling = true;
     if (rush.yPosition > (windowHeight-rush.height)){
       rush.falling = false;
-      window.setTimeout(dismissRush, 2000);
+      rush.yPosition = windowHeight-rush.height*(1.01);
+      window.setTimeout(dismissRush, rush.duration);
     }
     if(rush.falling){
       rush.yPosition += rush.speed;
@@ -50,9 +51,10 @@
   }
 
   function summonRush(){
+    console.log(rush.called);
     if (!rush.called){
       rush.falling = true
-      rush.xPosition = mouseX;
+      rush.xPosition = mouseX - rush.height/2;
       rush.yPosition = 0;
       rush.called = true;
     }
@@ -67,9 +69,15 @@
 
   function displayRush(){
     if (rush.called) {
-      image(rushRight, rush.xPosition, rush.yPosition, megamanWidth, megamanHeight)
-      //window.setTimeout(20000, dismissRush());
+      image(rushRight, rush.xPosition, rush.yPosition, rush.width, rush.height);
       rushFall();
+      rushTrampoline();
+    }
+  }
+
+  function rushTrampoline(){
+    if(megamanXPos >= rush.xPosition+rush.width && megamanXPos <= rush.xPosition && megamanYPos >= rush.yPosition+rush.height && megamanYPos <= rush.yPosition){
+      megamanYSpeed += rush.bounce;
     }
   }
 
@@ -111,7 +119,7 @@
   
   function draw() {
     background(100);
-    if (gameMode){
+    if (gameMode){      
       moveX();
       moveStep();
       touchingLeft();
@@ -119,7 +127,7 @@
       touchingBottom();
       shoot();
       makeMeAMegaman();
-      makeSniperJoe();
+      //makeSniperJoe();
       displayRush();
     }
   }
