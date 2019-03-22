@@ -31,18 +31,19 @@
       yPosition: 0,
       height: megamanHeight,
       width: megamanWidth,
-      speed: 20*yScaler,
-      bounce: 25*yScaler,
+      speed: 25*yScaler,
+      bounce: 20*yScaler,
+      canBounce: true,
       called: false,
       falling: false,
-      duration: 2000,
+      duration: 3000,
     };
   }
 
   function rushFall(){
     if (rush.yPosition > (windowHeight-rush.height)){
       rush.falling = false;
-      rush.yPosition = windowHeight-rush.height*(1.01);
+      rush.yPosition = windowHeight-rush.height*(1.0001);
       window.setTimeout(dismissRush, rush.duration);
     }
     if(rush.falling){
@@ -69,15 +70,28 @@
 
   function displayRush(){
     if (rush.called) {
-      image(rushRight, rush.xPosition, rush.yPosition, rush.width, rush.height);
+      if (rush.falling){
+        image(megamanTele, rush.xPosition+rush.width/2, rush.yPosition, rush.width/5, rush.height);
+      }
+      else{
+        image(rushRight, rush.xPosition, rush.yPosition, rush.width, rush.height);
+      }
       rushFall();
       rushTrampoline();
     }
   }
 
+  function rushRefresh(){
+    rush.canBounce = true;
+  }
+
   function rushTrampoline(){
-    if(megamanXPos >= rush.xPosition+rush.width && megamanXPos <= rush.xPosition && megamanYPos >= rush.yPosition+rush.height && megamanYPos <= rush.yPosition){
-      megamanYSpeed += rush.bounce;
+    if((megamanXPos <= rush.xPosition+rush.width) && (megamanXPos >= rush.xPosition-rush.width) && (megamanYPos <= rush.yPosition+(megamanHeight)) && (megamanYPos >= rush.yPosition-(rush.height/2))){
+      if (rush.canBounce && !rush.falling){
+        megamanYSpeed = -rush.bounce;
+        rush.canBounce = false;
+        window.setTimeout(rushRefresh, rush.duration/3);
+      }
     }
   }
 
@@ -127,7 +141,6 @@
       touchingBottom();
       shoot();
       makeMeAMegaman();
-      //makeSniperJoe();
       displayRush();
     }
   }
