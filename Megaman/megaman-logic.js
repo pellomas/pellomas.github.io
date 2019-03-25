@@ -31,7 +31,6 @@ let shot3Direction;
 
 let isMovingRight, isMovingLeft;
 
-
 let animationFrameCounter;
  
 function initializeMegamanVariables() {
