@@ -85,3 +85,18 @@ function initializeVariables(){
     currentStage = 0;
 }
 
+function initializeRushVariables(){
+  rush = {
+    xPosition: 'unCalled',
+    yPosition: 0,
+    height: megamanHeight,
+    width: megamanWidth,
+    speed: 25*yScaler,
+    bounce: 20*yScaler,
+    canBounce: true,
+    called: false,
+    falling: false,
+    duration: 3000,
+  };
+}
+

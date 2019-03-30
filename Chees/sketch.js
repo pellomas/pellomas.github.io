@@ -5,30 +5,34 @@
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
 
-let colour;
-let cellSize;
-
 function setup() {
   createCanvas(windowWidth, windowHeight);
+  angleMode(DEGREES);
+  stroke(0);
 }
 
-function pickCellSize(){
-  if (windowWidth > windowHeight){
-    return windowHeight/8;
+function fiveMin(){
+  for(i = 0; i <= 3; i++){
+    rotate(6)
+    strokeWeight(height /100);
+    line(width/5, 0, width/6, 0);
   }
-  else{
-    return windowWidth/8;
-  }
+  rotate(6);
+  strokeWeight(height / 50);
+  line(width/5, 0, width/6, 0);
+}
+
+function windowResized(){
+  createCanvas(windowWidth, windowHeight);
 }
 
 function draw() {
-  createCanvas(windowWidth, windowHeight);
-  cellSize = pickCellSize();
-  background(255)
-  for(x=0; x<8; x+=1){
-    for(y=0; y<8; y+=1){
-      line(windowWidth/2, windowHeight/2, x*cellSize, y*cellSize);
-      rect(x*cellSize, y*cellSize, 2, 2);
-    }
+  translate(width/2, height/2);
+  fill(255);
+  strokeWeight(height/200)
+  ellipse(0, 0, width/2.25);
+  for(e = 0; e <= 12; e++){
+    fiveMin();
   }
+  ellipse(0, 0, height/ 2000);
 }

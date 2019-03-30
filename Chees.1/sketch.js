@@ -5,38 +5,39 @@
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
 
-let colour;
-let cellSize;
+let rectWidth;
+let time;
+let myRectangle;
+let numberOfRects = 10;
+let rects = [];
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
+  time = 0;
+  rectWidth = width/numberOfRects;
+  generateInitialTerrain();
   
-  colour = true;
-}
-
-function pickCellSize(){
-  if (windowWidth > windowHeight){
-    return windowHeight/8;
-  }
-  else{
-    return windowWidth/8;
-  }
 }
 
 function draw() {
-  cellSize = pickCellSize();
-  background(255)
-  for(x=0; x<8; x+=1){
-    for(y=0; y<8; y+=1){
-      if (colour){
-        fill('white');
-      }
-      else{
-        fill('black');
-      }
-      colour = !colour;
-      rect(x*cellSize, y*cellSize, cellSize, cellSize);
-    }
-    colour = !colour
+  background(255);
+
+  fill(0);
+  for(i =0; i < numberOfRects; i++){
+    rect(rects[i], rects[1], rects[1], rects[1]);
+  }
+}
+
+function generateInitialTerrain(){
+  for (let i = 0; i < numberOfRects; i++){
+    let rectHeight = noise(time) * height;
+    let myRectangle = {
+    height: rectHeight,
+    width: rectWidth,
+    x: i*rectWidth,
+    y: height - rectHeight,
+    };
+    rects.push(myRectangle);
+    time += 0.01;
   }
 }
