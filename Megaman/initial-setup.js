@@ -18,6 +18,8 @@ let megamanDamageLeft;
 let megamanJumpShootRight;
 let megamanJumpShootLeft;
 
+let megamanMenuFace;
+
 let megamanShot;
 let enemyShot;
 let bigEnemyShot;
@@ -53,6 +55,9 @@ function preload(){
     megamanJumpShootRight = loadImage('assets/megaman_jump_shoot_right.png');
     megamanJumpShootLeft = loadImage('assets/megaman_jump_shoot_left.png');
   
+    megamanMenuFace = loadImage('assets/megaman_menu.jpg');
+
+
     megamanShot = loadImage('assets/lemon.png');
     enemyShot = loadImage('assets/enemy_shot.png');
     bigEnemyShot = loadImage('assets/big_enemy_shot.png');
@@ -72,7 +77,6 @@ function preload(){
 let xScaler;
 let yScaler;
     //States for the stage
-let menuMode;
 let gameMode;
 let currentStage;
     
@@ -80,8 +84,7 @@ function initializeVariables(){
     //Let's make a variable to call and keep sizes consistent with different windows
     xScaler = (windowWidth/900);
     yScaler = (windowHeight/900);
-    menuMode = false;
-    gameMode = true;
+    gameMode = false;
     currentStage = 0;
 }
 
@@ -89,8 +92,8 @@ function initializeRushVariables(){
   rush = {
     xPosition: 'unCalled',
     yPosition: 0,
-    height: megamanHeight,
-    width: megamanWidth,
+    height: yScaler * 180,
+    width: xScaler * 85,
     speed: 25*yScaler,
     bounce: 20*yScaler,
     canBounce: true,

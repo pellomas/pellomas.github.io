@@ -54,7 +54,7 @@ function initializeMegamanVariables() {
     canJump = false
     
     //Set the variables for Megaman's shots
-    megamanShotSpeed = xScaler * 10;
+    megamanShotSpeed = xScaler * 6;
     shot1Out = false;
     shot1XPosition = 'unShot';
     shot1yPosition = 'unShot'; 
@@ -131,7 +131,7 @@ function initializeMegamanVariables() {
         if (megamanXSpeed === 0){// If not moving left or right
           if (shot1Out || shot2Out || shot3Out){// if shooting
             // draw the sprite of megaman shooting left
-            image(megamanShootLeft, megamanXPos-(megamanWidth*0.5), megamanYPos, megamanWidth*1.4, megamanHeight);
+            image(megamanShootLeft, megamanXPos, megamanYPos, megamanWidth*1.4, megamanHeight);
           }
           else{// if not shooting
             //draw the sprite of megaman standing and facing left
@@ -185,17 +185,17 @@ function initializeMegamanVariables() {
   function shot1(){
       if (shot1Out){//if the player shoots and the shot's variables are equal to 'unShot', start the shot up
         if (shot1XPosition === 'unShot'){
-          shot1XPosition = megamanXPos + (megamanWidth/4);
+          shot1XPosition = megamanXPos;
         }
         if (shot1yPosition === 'unShot'){
-          shot1yPosition = megamanYPos + ((megamanHeight/2)-yScaler*30);
+          shot1yPosition = megamanYPos - 10*yScaler;
         }
         if (shot1Direction === 'unShot'){
           shot1Direction = megamanDirection;
         }
         //move the shot along the screen
         image(megamanShot, shot1XPosition, shot1yPosition, xScaler * 30, yScaler * 40);
-        shot1XPosition += (yScaler*megamanShotSpeed)*shot1Direction;
+        shot1XPosition += (xScaler*megamanShotSpeed)*shot1Direction;
         //check if the shot has gone offscreen. If it has, get rid of it.
         if (shot1XPosition > windowWidth || shot1XPosition < screenLeft){
           shot1Out = false;
@@ -209,17 +209,17 @@ function initializeMegamanVariables() {
   function shot2(){
     if (shot2Out){//if the player shoots and the shot's variables are equal to 'unShot', start the shot up
       if (shot2XPosition === 'unShot'){
-        shot2XPosition = megamanXPos + (megamanWidth/4);
+        shot2XPosition = megamanXPos;
       }
       if (shot2yPosition === 'unShot'){
-        shot2yPosition = megamanYPos + ((megamanHeight/2)-yScaler*30);
+        shot2yPosition = megamanYPos - 10*yScaler;
       }
       if (shot2Direction === 'unShot'){
         shot2Direction = megamanDirection;
       }
       //move the shot along the screen
       image(megamanShot, shot2XPosition, shot2yPosition, xScaler * 30, yScaler * 40);
-      shot2XPosition += (yScaler*megamanShotSpeed)*shot2Direction;
+      shot2XPosition += (xScaler*megamanShotSpeed)*shot2Direction;
       //check if the shot has gone offscreen. If it has, get rid of it.
       if (shot2XPosition > windowWidth || shot2XPosition < screenLeft){
         shot2Out = false;
@@ -233,17 +233,17 @@ function initializeMegamanVariables() {
 function shot3(){
   if (shot3Out){//if the player shoots and the shot's variables are equal to 'unShot', start the shot up
     if (shot3XPosition === 'unShot'){
-      shot3XPosition = megamanXPos + (megamanWidth/4);
+      shot3XPosition = megamanXPos;
     }
     if (shot3yPosition === 'unShot'){
-      shot3yPosition = megamanYPos + ((megamanHeight/2)-yScaler*30);
+      shot3yPosition = megamanYPos - 10*yScaler;
     }
     if (shot3Direction === 'unShot'){
       shot3Direction = megamanDirection;
     }
     //move the shot along the screen
     image(megamanShot, shot3XPosition, shot3yPosition, xScaler * 30, yScaler * 40);
-    shot3XPosition += (yScaler*megamanShotSpeed)*shot3Direction;
+    shot3XPosition += (xScaler*megamanShotSpeed)*shot3Direction;
     //check if the shot has gone offscreen. If it has, get rid of it.
     if (shot3XPosition > windowWidth || shot3XPosition < screenLeft){
       shot3Out = false;
@@ -289,11 +289,13 @@ function shot3(){
   
   //Stops the player from going offstage to the left
   function touchingLeft(){
-    if (megamanXPos <= 0){
+    if (megamanXPos <= megamanWidth/2){
       megamanXSpeed = 0;
-      megamanXPos = 0;
+      megamanXPos = megamanWidth/2;
     }
   }
+
+  
   
   // Dampens movement
   function cleanUpStep(){
@@ -328,9 +330,9 @@ function shot3(){
   
   //Stops the player from dropping out of the bottom of the screen
   function touchingBottom(){
-    if (megamanYPos >= (height - megamanHeight)-(7*yScaler)){
+    if (megamanYPos >= (height - megamanHeight/2)-(7*yScaler)){
       megamanYSpeed = 0;
-      megamanYPos = (height - megamanHeight) - (1*yScaler/2);
+      megamanYPos = (height - megamanHeight/2) - (1*yScaler/2);
       canJump = true
     }
   }

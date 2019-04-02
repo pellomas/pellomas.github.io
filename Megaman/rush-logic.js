@@ -1,7 +1,7 @@
 function rushFall(){
-  if (rush.yPosition > (windowHeight-rush.height)){
+  if (rush.yPosition > (windowHeight-rush.height/2)){
     rush.falling = false;
-    rush.yPosition = windowHeight-rush.height*(1.0001);
+    rush.yPosition = windowHeight-(rush.height/2 + (0.0001));
     window.setTimeout(dismissRush, rush.duration);
   }
   if(rush.falling){
@@ -10,10 +10,9 @@ function rushFall(){
 }
 
 function summonRush(){
-  console.log(rush.called);
   if (!rush.called){//only call Rush if Rush isn't called
     rush.falling = true
-    rush.xPosition = mouseX - rush.height/2;
+    rush.xPosition = mouseX;
     rush.yPosition = 0;
     rush.called = true;
   }
@@ -29,10 +28,13 @@ function dismissRush(){
 function displayRush(){
   if (rush.called) {
     if (rush.falling){
-      image(megamanTele, rush.xPosition+rush.width/2, rush.yPosition, rush.width/5, rush.height);
+      image(megamanTele, rush.xPosition, rush.yPosition, rush.width/5, rush.height);
+    }
+    else if (rush.canBounce){
+      image(rushRight, rush.xPosition, rush.yPosition, rush.width, rush.height);
     }
     else{
-      image(rushRight, rush.xPosition, rush.yPosition, rush.width, rush.height);
+      image(rushSpringRight, rush.xPosition, rush.yPosition, rush.width, rush.height);
     }
     rushFall();
     rushTrampoline();
