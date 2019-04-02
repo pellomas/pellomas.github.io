@@ -7,13 +7,13 @@
 
 let rectWidth;
 let time;
-let myRectangle;
-let numberOfRects = 10;
+let numberOfRects;
 let rects = [];
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
   time = 0;
+  numberOfRects = width;
   rectWidth = width/numberOfRects;
   generateInitialTerrain();
   
@@ -22,9 +22,23 @@ function setup() {
 function draw() {
   background(255);
 
+  rects.shift();
+
+  let rectHeight = noise(time) * height;
+  let myRectangle = {
+   height: rectHeight,
+   width: width/numberOfRects,
+    x: (width-rectWidth)*rectWidth,
+    y: height - rectHeight,
+  };
+  rects.push(myRectangle);
+
+  time += 0.001;
+
   fill(0);
   for(i =0; i < numberOfRects; i++){
-    rect(rects[i], rects[1], rects[1], rects[1]);
+    rects[i].x -= rectWidth;
+    rect(rects[i].x, rects[i].y, rects[i].width, rects[i].height);
   }
 }
 
@@ -32,12 +46,12 @@ function generateInitialTerrain(){
   for (let i = 0; i < numberOfRects; i++){
     let rectHeight = noise(time) * height;
     let myRectangle = {
-    height: rectHeight,
-    width: rectWidth,
-    x: i*rectWidth,
-    y: height - rectHeight,
+      height: rectHeight,
+      width: width/numberOfRects,
+      x: i*rectWidth,
+      y: height - rectHeight,
     };
     rects.push(myRectangle);
-    time += 0.01;
+    time += 0.001;
   }
 }
