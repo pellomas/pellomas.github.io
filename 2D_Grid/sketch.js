@@ -5,6 +5,7 @@
 let gridSize = 50;
 let grid;
 let cellSize;
+let autoPlay;
 
 function setup() {
   if (windowWidth > windowHeight) {
@@ -109,11 +110,29 @@ function update() {
 
 function keyPressed() {
   if (key === " ") {
+    window.clearInterval(autoPlay);
     update();
   }
-  if (key === "r") {
+  if (key === "c") {
     grid = create2DArray(gridSize, gridSize);
   }
+  if (key === 'a'){
+    autoPlay = window.setInterval(update, 50);
+  }
+  if (key === "r") {
+    grid = createRandom2DArray(gridSize, gridSize);
+  }
+  if (key === 's'){
+    saveJSON(grid, 'grid_save.json');
+  }
+  if (key === 'g'){
+    noLoop();
+    grid = loadJSON('assets/grid_save.json', loadingComplete);
+  }
+}
+
+function loadingComplete(){
+  loop()
 }
 
 function mousePressed() {
