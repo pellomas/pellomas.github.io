@@ -9,57 +9,22 @@ let rogue;
 let paladin;
 let mage;
 let cleric;
+let playerOne;
 let playerCharacters = [rogue, paladin, mage, cleric];
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  rogue = {
-    xPosition: 0,
-    yPosition: 0,
-    xSpeed: 10,
-    jumpHeight: 10,
-    maxHealth: 30,
-    currentHealth: 30,
-    height: 20,
-    attackOne: console.log('attack one'),
-    attackTwo: console.log('attack two'),
-  };
-  paladin = {
-    xPosition: 0,
-    yPosition: 0,
-    xSpeed: 10,
-    jumpHeight: 10,
-    maxHealth: 30,
-    currentHealth: 30,
-    height: 20,
-    attackOne: console.log('attack one'),
-    attackTwo: console.log('attack two'),
-  };
-  mage = {
-    xPosition: 0,
-    yPosition: 0,
-    xSpeed: 10,
-    jumpHeight: 10,
-    maxHealth: 30,
-    currentHealth: 30,
-    height: 20,
-    attackOne: console.log('attack one'),
-    attackTwo: console.log('attack two'),
-  };
-  cleric = {
-    xPosition: 0,
-    yPosition: 0,
-    xSpeed: 10,
-    jumpHeight: 10,
-    maxHealth: 30,
-    currentHealth: 30,
-    height: 20,
-    attackOne: console.log('attack one'),
-    attackTwo: console.log('attack two'),
-  };
+  createCanvas(windowWidth, windowHeight);
+  time = 0;
+  numberOfRects = width;
+  rectWidth = width/numberOfRects;
+  generateInitialTerrain();
+
+  
 }
 
 function draw() {
-  background(220);
-  rogue.attackOne;
+  background(66, 206, 244);
+  moveTerrain();
+  moveTerrain();
 }
