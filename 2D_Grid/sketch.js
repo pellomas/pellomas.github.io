@@ -24,19 +24,6 @@ function draw() {
   displayGrid();
 }
 
-function displayGrid() {
-  for (let y = 0; y < gridSize; y++) {
-    for (let x = 0; x < gridSize; x++) {
-      if (grid[y][x] === 0) {
-        fill(255);
-      }
-      else {
-        fill(0);
-      }
-      rect(x*cellSize, y*cellSize, cellSize, cellSize);
-    }
-  }
-}
 
 
 function create2DArray(cols, rows) {
