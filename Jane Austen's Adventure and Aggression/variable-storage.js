@@ -31,6 +31,7 @@ function initializeVariables(){
 }
 
 let menuCellSize;
+let menuPosition;
 
 function initializeWindowVariables(){
     if (width > height) {
@@ -39,4 +40,5 @@ function initializeWindowVariables(){
     else {
         menuCellSize = width / 3
     }
+    menuPosition = ((width - 3*menuCellSize) / 2);
 }

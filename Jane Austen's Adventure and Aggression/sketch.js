@@ -30,8 +30,16 @@ function draw() {
     moveTerrain();
  }
  else if (gameMode === 0){
-    background(255);
+    background(0);
     setUpMainMenu();
-    displayGrid(menuGrid, menuCellSize);
+    displayGrid(menuGrid, menuCellSize, menuPosition, 0);
   }
+}
+
+let xcoord = 0;
+let ycoord = 0;
+
+function mouseClicked(){
+  xcoord = floor(mouseX);
+  ycoord = floor(mouseY);
 }

@@ -15,7 +15,7 @@ function setUpMainMenu(){
     menuGrid = create2DArray(3, 3);
 }
 
-function displayGrid(grid, cellSize) {
+function displayGrid(grid, cellSize, gridX, gridY) {
   for (let y = 0; y < grid.length; y++) {
     for (let x = 0; x < grid.length; x++) {
       if (menuGrid[y][x] === 0) {
@@ -24,7 +24,7 @@ function displayGrid(grid, cellSize) {
       else {
         fill(0);
       }
-      rect(x*cellSize + width / 4, y*cellSize, cellSize, cellSize);
+      rect(x*cellSize + gridX, y*cellSize + gridY, cellSize, cellSize);
     }
   }
 }
