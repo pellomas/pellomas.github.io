@@ -11,10 +11,11 @@ let paladin;
 let mage;
 let cleric;
 let playerOne;
-let playerCharacters = [rogue, paladin, mage, cleric, rogue, rogue, paladin, mage, cleric];
+
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
+  ellipseMode(CENTER);
   initializeVariables();
   initializeWindowVariables();
   time = 0;
@@ -28,6 +29,7 @@ function draw() {
     background(66, 206, 244);
     moveTerrain();
     moveTerrain();
+    moveStep();
  }
  else if (gameMode === 0){
     background(0);
