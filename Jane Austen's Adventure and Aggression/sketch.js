@@ -11,7 +11,7 @@ let paladin;
 let mage;
 let cleric;
 let playerOne;
-let playerCharacters = [rogue, paladin, mage, cleric];
+let playerCharacters = [rogue, paladin, mage, cleric, rogue, rogue, paladin, mage, cleric];
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -36,10 +36,23 @@ function draw() {
   }
 }
 
-let xcoord = 0;
-let ycoord = 0;
 
 function mouseClicked(){
-  xcoord = floor(mouseX);
-  ycoord = floor(mouseY);
+  if (gameMode === 0){
+    if (mouseX > menuPosition && mouseX < (menuPosition + 3*menuCellSize)){
+      if (mouseX > menuPosition + menuCellSize && mouseX < (menuPosition + 3*menuCellSize)){
+        playerOne.class += 1;
+        if (mouseX > menuPosition + 2*menuCellSize && mouseX < (menuPosition + 3*menuCellSize)){
+          playerOne.class += 1;  
+        }
+      }
+      if (mouseY > menuCellSize && mouseY < 2*menuCellSize){
+        playerOne.class += 3;
+      }
+      if (mouseY > 2*menuCellSize){
+        playerOne.class += 6;  
+      }
+      gameMode = 1;
+    }
+  }
 }
