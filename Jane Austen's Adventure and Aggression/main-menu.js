@@ -28,3 +28,21 @@ function displayGrid(grid, cellSize, gridX, gridY) {
     }
   }
 }
+
+function mainMenuClick(){
+  if (mouseX > menuPosition && mouseX < (menuPosition + 3*menuCellSize)){
+    if (mouseX > menuPosition + menuCellSize && mouseX < (menuPosition + 3*menuCellSize)){
+      playerOne.class += 1;
+      if (mouseX > menuPosition + 2*menuCellSize && mouseX < (menuPosition + 3*menuCellSize)){
+        playerOne.class += 1;  
+      }
+    }
+    if (mouseY > menuCellSize && mouseY < 2*menuCellSize){
+      playerOne.class += 3;
+    }
+    if (mouseY > 2*menuCellSize){
+      playerOne.class += 6;  
+    }
+    gameMode = 1;
+  }
+}
