@@ -25,12 +25,19 @@ function setup() {
 }
 
 function draw() {
+  //Game
   if (gameMode === 1){
     background(66, 206, 244);
     moveTerrain();
     moveTerrain();
     moveStep();
+    cleanUpStep();
+    touchingBottom();
+    moveX();
+    fill('red');
+    ellipse(playerOne.xPosition, playerOne.yPosition, playerCharacters[playerOne.class].width, playerCharacters[playerOne.class].height)
  }
+ //Main Menu
  else if (gameMode === 0){
     background(0);
     setUpMainMenu();
@@ -42,5 +49,6 @@ function draw() {
 function mouseClicked(){
   if (gameMode === 0){
     mainMenuClick();
+    console.log(playerCharacters);
   }
 }

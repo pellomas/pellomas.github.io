@@ -1,39 +1,42 @@
-// //Let Megaman jump
-// function jump(){
-//     if (canJump){
-//         megamanYSpeed = megamanYSpeed - (15*yScaler);
-//         canJump = false//needs to touch ground to reset this variable
-//     }
-// }
+//Let Megaman jump
+function jump(){
+    if (playerOne.canJump){
+        
+        playerOne.ySpeed -= (playerCharacters[playerOne.class].jumpHeight);
+        playerOne.canJump = false;//needs to touch ground to reset this variable
+        console.log(playerOne.ySpeed);
+    }
+}
 
-// //Change the player's direction and speed either right or left
-// function moveX(){
-//     if (isMovingRight) {
-//     megamanXSpeed = (4*xScaler);
-//     megamanDirection = 1;
-//     }
-//     if (isMovingLeft) {
-//     megamanXSpeed = (-4*xScaler);
-//     megamanDirection = -1
-//     }
-// }
+//Change the player's speed either right or left
+function moveX(){
+    if (isMovingRight) {
+    playerOne.xSpeed = (4);
+    }
+    if (isMovingLeft) {
+    playerOne.xSpeed = (-4);
+    }
+}
 
-// function keyPressed() {
-//     if (key === 'a' || key === 'A') {
-//         isMovingLeft = true;
-//     }
-//     if (key === 'd' || key === 'D') {
-//     isMovingRight = true;
-//     }
-// }
-// function keyReleased() {
-//     if (key === 'a' || key === 'A') {
-//         isMovingLeft = false;
-//     }
-//     if (key === 'd' || key === 'D') {
-//         isMovingRight = false;
-//     }
-// }
+function keyPressed() {
+    if (key === 'a' || key === 'A') {
+        isMovingLeft = true;
+    }
+    if (key === 'd' || key === 'D') {
+        isMovingRight = true;
+    }
+    if (key === ' '){
+        jump();
+    }
+}
+function keyReleased() {
+    if (key === 'a' || key === 'A') {
+        isMovingLeft = false;
+    }
+    if (key === 'd' || key === 'D') {
+        isMovingRight = false;
+    }
+}
 
 function moveStep(){
     playerOne.xPosition += playerOne.xSpeed;
@@ -49,43 +52,29 @@ function moveStep(){
 //         megamanXPos = megamanWidth/2;
 //     }
 // }
-
-//     function keyTyped(){
-//     // Make Megaman jump
-//     if (key === ' '){
-//         jump();
-//     }
-//     //changes his direction when you press a direction key
-//     if (key === 'a' || key === 'A'){
-//         megamanDirection = -1;
-//     }
-//     if (key === 'd' || key === 'D'){
-//         megamanDirection = 1;
-//     }
-// }
     
-//     //Stops the player from dropping out of the bottom of the screen
-// function touchingBottom(){
-//     if (megamanYPos >= (height - megamanHeight/2)-(7*yScaler)){
-//         megamanYSpeed = 0;
-//         megamanYPos = (height - megamanHeight/2) - (1*yScaler/2);
-//         canJump = true
-//     }
-// }
+    //Stops the player from dropping out of the bottom of the screen
+function touchingBottom(){
+    if (playerOne.yPosition >= (height - playerCharacters[playerOne.class].height)-(7)){
+        playerOne.ySpeed = 0;
+        playerOne.yPosition = (height - playerCharacters[playerOne.class].height) - (1);
+        playerOne.canJump = true;
+    }
+}
 
-// // Dampens movement
-// function cleanUpStep(){
+// Dampens movement
+function cleanUpStep(){
 
-//     megamanYSpeed = megamanYSpeed + (0.7*yScaler/2);
+    playerOne.ySpeed += (0.7);
 
-//     if (megamanXSpeed < 1 && megamanXSpeed > -1){ // Totally stops you if you slow down to -1 to 1 speed
-//         megamanXSpeed = 0;
-//     }
+    if (playerOne.xSpeed < 1 && playerOne.xSpeed > -1){ // Totally stops you if you slow down to -1 to 1 speed
+        playerOne.xSpeed = 0;
+    }
 
-//     if (megamanXSpeed > 0){//Lessens movement in a slightly more gradual way than a total stop
-//         megamanXSpeed -= (1*xScaler/2);
-//     }
-//     if (megamanXSpeed < 0){
-//         megamanXSpeed += (1*xScaler/2);
-//     }
-// }
+    if (playerOne.xSpeed > 0){//Lessens movement in a slightly more gradual way than a total stop
+        playerOne.xSpeed -= (1);
+    }
+    if (playerOne.xSpeed < 0){
+        playerOne.xSpeed += (1);
+    }
+}
