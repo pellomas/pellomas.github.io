@@ -4,7 +4,6 @@ function jump(){
         
         playerOne.ySpeed -= (playerCharacters[playerOne.class].jumpHeight);
         playerOne.canJump = false;//needs to touch ground to reset this variable
-        console.log(playerOne.ySpeed);
     }
 }
 
@@ -41,23 +40,25 @@ function keyReleased() {
 function moveStep(){
     playerOne.xPosition += playerOne.xSpeed;
     playerOne.yPosition += playerOne.ySpeed;
+
+    playerOne.xPosition -= 2;
 }
     
     
     
-//     //Stops the player from going offstage to the left
-// function touchingLeft(){
-//     if (megamanXPos <= megamanWidth/2){
-//         megamanXSpeed = 0;
-//         megamanXPos = megamanWidth/2;
-//     }
-// }
-    
-    //Stops the player from dropping out of the bottom of the screen
-function touchingBottom(){
-    if (playerOne.yPosition >= (height - playerCharacters[playerOne.class].height)-(7)){
+    //Stops the player from going offstage to the left
+function touchingSide(){
+    if (playerOne.xPosition <= playerCharacters[playerOne.class].width/2){
+        playerOne.xSpeed = 0;
+        playerOne.xPosition = playerCharacters[playerOne.class].width/2;
+    }
+    if (playerOne.xPosition >= width - playerCharacters[playerOne.class].width/2){
+        playerOne.xSpeed = 0;
+        playerOne.xPosition = width - playerCharacters[playerOne.class].width/2;
+    }
+    if (playerOne.yPosition >= height - (rects[floor(playerOne.yPosition)].height - playerCharacters[playerOne.class].height/2)-(7)){
         playerOne.ySpeed = 0;
-        playerOne.yPosition = (height - playerCharacters[playerOne.class].height) - (1);
+        playerOne.yPosition = height - (rects[floor(playerOne.yPosition)].height - playerCharacters[playerOne.class].height/2) - (1);
         playerOne.canJump = true;
     }
 }

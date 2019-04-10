@@ -6,32 +6,36 @@ let isMovingLeft;
 function initializeVariables(){
     
     rogue = {       
-        jumpHeight: 25,
+        jumpHeight: 20,
         maxHealth: 30,
-        height: 20,
-        width: 15,
-        moveSpeed: 10,
+        height: 60,
+        width: 45,
+        moveSpeed: 20,
+        sprite: 'purple',
     };
     paladin = {
         jumpHeight: 10,
         maxHealth: 30,
-        height: 20,
-        width: 15,
-        moveSpeed: 5,
+        height: 65,
+        width: 52,
+        moveSpeed: 10,
+        sprite: 'red',
     };
     mage = {
-        jumpHeight: 20,
+        jumpHeight: 15,
         maxHealth: 30,
-        height: 20,
-        width: 15,
-        moveSpeed: 8,
+        height: 70,
+        width: 45,
+        moveSpeed: 15,
+        sprite: 'cyan',
     };
     cleric = {
-        jumpHeight: 17,
+        jumpHeight: 12,
         maxHealth: 30,
-        height: 20,
-        width: 15,
-        moveSpeed: 7,
+        height: 67,
+        width: 50,
+        moveSpeed: 13,
+        sprite: 'yellow',
     };
 
     playerCharacters = [rogue, paladin, mage, cleric, rogue, rogue, paladin, mage, cleric];
