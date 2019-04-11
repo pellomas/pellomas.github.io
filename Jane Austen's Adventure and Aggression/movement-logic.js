@@ -10,10 +10,10 @@ function jump(){
 //Change the player's speed either right or left
 function moveX(){
     if (isMovingRight) {
-    playerOne.xSpeed = (4);
+    playerOne.xSpeed = (playerCharacters[playerOne.class].moveSpeed);
     }
     if (isMovingLeft) {
-    playerOne.xSpeed = (-4);
+    playerOne.xSpeed = (-playerCharacters[playerOne.class].moveSpeed);
     }
 }
 
@@ -42,7 +42,9 @@ function moveStep(){
     playerOne.yPosition += playerOne.ySpeed;
 
     playerOne.xPosition -= 2;
+     
 }
+    
     
     
     
@@ -56,9 +58,9 @@ function touchingSide(){
         playerOne.xSpeed = 0;
         playerOne.xPosition = width - playerCharacters[playerOne.class].width/2;
     }
-    if (playerOne.yPosition >= height - (rects[floor(playerOne.xPosition)].height - playerCharacters[playerOne.class].height/2)-(7)){
+    if (playerOne.yPosition >= height - (rects[floor(playerOne.xPosition)].height - playerCharacters[playerOne.class].height/4)-(7)){
         playerOne.ySpeed = 0;
-        playerOne.yPosition = height - (rects[floor(playerOne.xPosition)].height - playerCharacters[playerOne.class].height/2) - (1);
+        playerOne.yPosition = height - (rects[floor(playerOne.xPosition)].height - playerCharacters[playerOne.class].height/4) - (1);
         playerOne.canJump = true;
     }
 }

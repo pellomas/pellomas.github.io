@@ -2,7 +2,6 @@ let playerCharacters;
 let isMovingRight;
 let isMovingLeft;
 
-
 function initializeVariables(){
     
     rogue = {       
@@ -10,7 +9,7 @@ function initializeVariables(){
         maxHealth: 30,
         height: 60,
         width: 45,
-        moveSpeed: 20,
+        moveSpeed: 10,
         sprite: 'purple',
     };
     paladin = {
@@ -18,7 +17,7 @@ function initializeVariables(){
         maxHealth: 30,
         height: 65,
         width: 52,
-        moveSpeed: 10,
+        moveSpeed: 5,
         sprite: 'red',
     };
     mage = {
@@ -26,7 +25,7 @@ function initializeVariables(){
         maxHealth: 30,
         height: 70,
         width: 45,
-        moveSpeed: 15,
+        moveSpeed: 8,
         sprite: 'cyan',
     };
     cleric = {
@@ -34,7 +33,7 @@ function initializeVariables(){
         maxHealth: 30,
         height: 67,
         width: 50,
-        moveSpeed: 13,
+        moveSpeed: 6,
         sprite: 'yellow',
     };
 

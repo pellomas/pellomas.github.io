@@ -15,6 +15,7 @@ let playerOne;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
+  document.addEventListener("contextmenu", event => event.preventDefault());
   ellipseMode(CENTER);
   initializeVariables();
   initializeWindowVariables();
@@ -36,7 +37,6 @@ function draw() {
     moveX();
     fill(playerCharacters[playerOne.class].sprite);
     ellipse(playerOne.xPosition, playerOne.yPosition, playerCharacters[playerOne.class].width, playerCharacters[playerOne.class].height)
-    console.log(rects[floor(playerOne.yPosition)], playerOne.yPosition);
   }
  //Main Menu
  else if (gameMode === 0){
@@ -51,5 +51,8 @@ function mouseClicked(){
   if (gameMode === 0){
     mainMenuClick();
     console.log(playerCharacters);
+  }
+  if (gameMode === 1){
+    playerCharacters[playerOne.class].attackOne;
   }
 }
