@@ -56,9 +56,9 @@ function touchingSide(){
         playerOne.xSpeed = 0;
         playerOne.xPosition = width - playerCharacters[playerOne.class].width/2;
     }
-    if (playerOne.yPosition >= height - (rects[floor(playerOne.yPosition)].height - playerCharacters[playerOne.class].height/2)-(7)){
+    if (playerOne.yPosition >= height - (rects[floor(playerOne.xPosition)].height - playerCharacters[playerOne.class].height/2)-(7)){
         playerOne.ySpeed = 0;
-        playerOne.yPosition = height - (rects[floor(playerOne.yPosition)].height - playerCharacters[playerOne.class].height/2) - (1);
+        playerOne.yPosition = height - (rects[floor(playerOne.xPosition)].height - playerCharacters[playerOne.class].height/2) - (1);
         playerOne.canJump = true;
     }
 }
@@ -68,7 +68,7 @@ function cleanUpStep(){
 
     playerOne.ySpeed += (0.7);
 
-    if (playerOne.xSpeed < 1 && playerOne.xSpeed > -1){ // Totally stops you if you slow down to -1 to 1 speed
+    if (playerOne.xSpeed < 1 && playerOne.xSpeed > -1){ // Totally stops you if you slow down to a speed value from 1 to -1
         playerOne.xSpeed = 0;
     }
 

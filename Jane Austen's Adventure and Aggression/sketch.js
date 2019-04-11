@@ -1,9 +1,9 @@
-// Project Title
-// Your Name
-// Date
+// Jane Austen's Adventure and Aggression
+// Patrick Lomas
+// April 2, 2019
 //
 // Extra for Experts:
-// - describe what you did to take this project "above and beyond"
+// 
 
 let gameMode = 0; //0 is Main Menu, 1 is Game, 2 is Inventory
 let rogue;
