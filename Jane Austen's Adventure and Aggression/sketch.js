@@ -23,6 +23,7 @@ function setup() {
   numberOfRects = width;
   rectWidth = width / numberOfRects;
   generateInitialTerrain();
+  setRandomEncounters(1000, 5);
 }
 
 function draw() {
@@ -50,9 +51,8 @@ function draw() {
 function mouseClicked(){
   if (gameMode === 0){
     mainMenuClick();
-    console.log(playerCharacters);
   }
   if (gameMode === 1){
-    playerCharacters[playerOne.class].attackOne;
+    
   }
 }
