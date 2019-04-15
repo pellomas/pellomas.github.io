@@ -9,3 +9,11 @@ function setRandomEncounters(encounterAmount, encounterRate){
         }
     }
 }
+
+function getEncounter(){
+    let currentSpace;
+    currentSpace = encounterArray.unshift();
+    if (currentSpace !== 'no encounter'){
+        console.log(currentSpace);
+    }
+}
