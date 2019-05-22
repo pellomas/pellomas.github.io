@@ -6,10 +6,21 @@
 // - describe what you did to take this project "above and beyond"
 
 
+let cnv;
+let d;
 function setup() {
-  createCanvas(windowWidth, windowHeight);
+  cnv = createCanvas(windowWidth, windowHeight);
+  cnv.mouseOver(changeGray);
+  d = 10;
 }
 
 function draw() {
-  background(220);
+  ellipse(width / 2, height / 2, d, d);
+}
+
+function changeGray() {
+  d = d + 10;
+  if (d > 100) {
+    d = 0;
+  }
 }
